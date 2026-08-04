@@ -1,0 +1,19 @@
+
+{
+  "name": "Tandil Turismo",
+  "short_name": "Tandil Turismo",
+  "description": "Aplicación turística para explorar puntos destacados de Tandil.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f4f6f8",
+  "theme_color": "#2c3e50",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "48x48",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
