@@ -6,6 +6,7 @@ import fondoTandil from './assets/fondoTandil.png';
 function App() {
     const [busqueda, setBusqueda] = useState("");
     const [installPrompt, setInstallPrompt] = useState(null);
+    const [categoria, setCategoria] = useState("");
 
     useEffect(() => {
         const handleBeforeInstallPrompt = (event) => {
@@ -133,19 +134,39 @@ function App() {
             </section>
 
             {/* 3. CATEGORÍAS */}
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '30px', marginBottom: '50px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', color: '#1a3322', fontWeight: 'bold', fontSize: '16px' }}>
-                    <span style={{ fontSize: '24px' }}></span> Paseos
-                </div>
-                <div style={{ width: '1px', background: '#ccc' }}></div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', color: '#1a3322', fontWeight: 'bold', fontSize: '16px' }}>
-                    <span style={{ fontSize: '24px' }}></span> Gastronomía
-                </div>
-                <div style={{ width: '1px', background: '#ccc' }}></div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', color: '#1a3322', fontWeight: 'bold', fontSize: '16px' }}>
-                    <span style={{ fontSize: '24px' }}></span> Cultura
-                </div>
+           <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginBottom: '50px', flexWrap: 'wrap' }}>
+                <span 
+                    onClick={() => setCategoria("")}
+                    style={{ cursor: 'pointer', color: categoria === "" ? '#fff' : '#1a3322', background: categoria === "" ? '#5d7d65' : 'transparent', padding: '6px 14px', borderRadius: '6px', fontWeight: 'bold', fontSize: '15px', transition: '0.2s' }}
+                >
+                    Todas
+                </span>
+                <span 
+                    onClick={() => setCategoria("Paseo")}
+                    style={{ cursor: 'pointer', color: categoria === "Paseo" ? '#fff' : '#1a3322', background: categoria === "Paseo" ? '#5d7d65' : 'transparent', padding: '6px 14px', borderRadius: '6px', fontWeight: 'bold', fontSize: '15px', transition: '0.2s' }}
+                >
+                    Paseos
+                </span>
+                <span 
+                    onClick={() => setCategoria("Gastronomía")}
+                    style={{ cursor: 'pointer', color: categoria === "Gastronomía" ? '#fff' : '#1a3322', background: categoria === "Gastronomía" ? '#5d7d65' : 'transparent', padding: '6px 14px', borderRadius: '6px', fontWeight: 'bold', fontSize: '15px', transition: '0.2s' }}
+                >
+                    Gastronomía
+                </span>
+                <span 
+                    onClick={() => setCategoria("Cultura")}
+                    style={{ cursor: 'pointer', color: categoria === "Cultura" ? '#fff' : '#1a3322', background: categoria === "Cultura" ? '#5d7d65' : 'transparent', padding: '6px 14px', borderRadius: '6px', fontWeight: 'bold', fontSize: '15px', transition: '0.2s' }}
+                >
+                    Cultura
+                </span>
+                <span 
+                    onClick={() => setCategoria("Aventura")}
+                    style={{ cursor: 'pointer', color: categoria === "Aventura" ? '#fff' : '#1a3322', background: categoria === "Aventura" ? '#5d7d65' : 'transparent', padding: '6px 14px', borderRadius: '6px', fontWeight: 'bold', fontSize: '15px', transition: '0.2s' }}
+                >
+                    Aventura
+                </span>
             </div>
+            
 
             {/* 4. MAIN CONTENT (Tarjetas) */}
             <main style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 20px' }}>

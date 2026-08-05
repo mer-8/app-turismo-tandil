@@ -19,5 +19,12 @@ export const lugaresTandil = [
     tipo: "Recreación",
     descripcion: "Espejo de agua artificial ideal para actividades náuticas y caminatas al aire libre.",
     imagen: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Lago_en_Tandil.jpg"
+  },
+  {
+    id: 5,
+    nombre: "Tandil Extremo (Tirolesa)",
+    tipo: "Aventura",
+    descripcion: "Circuito de arborismo, tirolesas y juegos de aventura en medio de la naturaleza.",
+    imagen: ""
   }
 ];
