@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
 :root {
   --text: #6b6375;
   --text-h: #08060d;
@@ -56,6 +58,12 @@ html, body {
   width: 100%;
   height: 100%;
   background-color: #fafcfa;
+
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
 }
 
 #root {
@@ -68,7 +76,6 @@ html, body {
 
 h1,
 h2 {
-  font-family: var(--heading);
   font-weight: 500;
   color: var(--text-h);
 }
@@ -97,7 +104,6 @@ p {
 
 code,
 .counter {
-  font-family: var(--mono);
   display: inline-flex;
   border-radius: 4px;
   color: var(--text-h);
