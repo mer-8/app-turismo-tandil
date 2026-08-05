@@ -68,7 +68,6 @@ function App() {
                     letterSpacing: '-0.5px',
                     cursor: 'pointer'
                 }}>
-                    {/* Badge o cajita con ícono minimalista */}
                     <span style={{
                         background: '#5d7d65',
                         color: '#fff',
@@ -85,8 +84,6 @@ function App() {
               <circle cx="12" cy="10" r="3"></circle>
             </svg>
           </span>
-
-                    {/* Texto con pesos diferenciados */}
                     <span>
             Tandil <span style={{ fontWeight: '400', color: '#5d7d65' }}>Turismo</span>
           </span>
@@ -122,13 +119,13 @@ function App() {
                     maxWidth: '600px',
                     margin: '0 auto',
                     background: '#fff',
-                    borderRadius: '8px', /* Antes 40px */
+                    borderRadius: '8px',
                     display: 'flex',
                     alignItems: 'center',
                     padding: '8px 8px 8px 15px',
                     boxShadow: '0 4px 15px rgba(0,0,0,0.05)'
                 }}>
-                    {/* Lupa en SVG */}
+                    {}
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <circle cx="11" cy="11" r="8"></circle>
                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -154,7 +151,7 @@ function App() {
                         cursor: 'pointer',
                         color: '#fff'
                     }}>
-                        {/* Flecha en SVG */}
+                        {}
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <line x1="5" y1="12" x2="19" y2="12"></line>
                             <polyline points="12 5 19 12 12 19"></polyline>
