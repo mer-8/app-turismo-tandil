@@ -7,7 +7,8 @@ export const lugaresTandil = [
     horarios: "Lunes a Domingo de 09:00 a 18:00 hs",
     direccion: "Av. Centinela s/n",
     infoAmpliada: "El complejo cuenta con aerosillas, juegos infantiles, senderos para caminatas y restaurantes de montaña. Es ideal para pasar el día en familia disfrutando del aire libre.",
-    imagen: "https://upload.wikimedia.org/wikipedia/commons/c/c2/Cerro_El_Centinela%2C_Tandil_03.jpg"
+    imagen: "https://upload.wikimedia.org/wikipedia/commons/c/c2/Cerro_El_Centinela%2C_Tandil_03.jpg",
+    coords :[-37.355, -59.1728]
   },
   {
     id: 2,
@@ -17,7 +18,8 @@ export const lugaresTandil = [
     horarios: "Abierto las 24 horas",
     direccion: "Av. Monseñor de Andrea y Pje. Padre Fitte",
     infoAmpliada: "Es uno de los paseos tradicionales de la ciudad. Posee imponentes esculturas de granito y bronce distribuidas a lo largo de las estaciones, rodeado por una frondosa arboleda.",
-    imagen: "https://upload.wikimedia.org/wikipedia/commons/e/e1/Cristo-Tandil.JPG"
+    imagen: "https://upload.wikimedia.org/wikipedia/commons/e/e1/Cristo-Tandil.JPG",
+    coords: [-37.32786,-59.15227]
   },
   {
     id: 3,
@@ -27,7 +29,8 @@ export const lugaresTandil = [
     horarios: "Acceso libre las 24 horas",
     direccion: "Ruta Provincial 74 y Dique Fuerte",
     infoAmpliada: "El espejo de agua cuenta con una isla central y un géiser emblemático. Alrededor hay extensos espacios verdes, bicisendas, alquiler de kayaks y puestos de comidas.",
-    imagen: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Lago_en_Tandil.jpg"
+    imagen: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Lago_en_Tandil.jpg",
+    coords: [-37.3447, -59.1306]
   },
   {
     id: 4,
@@ -47,7 +50,8 @@ export const lugaresTandil = [
     horarios: "Lunes a Domingo de 08:00 a 20:00 hs",
     direccion: "Paraje La Movediza",
     infoAmpliada: "Parque municipal de acceso gratuito que ofrece una vista panorámica excepcional de la ciudad. Cuenta con réplica exacta de la piedra histórica y senderos interpretativos.",
-    imagen: "https://upload.wikimedia.org/wikipedia/commons/6/67/Piedra_Movediza_de_Tandil.jpg"
+    imagen: "https://upload.wikimedia.org/wikipedia/commons/6/67/Piedra_Movediza_de_Tandil.jpg",
+    coords: [-37.30944, -59.16944]
   },
   {
     id: 6,
@@ -57,7 +61,8 @@ export const lugaresTandil = [
     horarios: "Martes a Sábados de 15:00 a 19:00 hs",
     direccion: "4 de Julio 455",
     infoAmpliada: "Resguarda valioso patrimonio histórico regional, armas de la época de la fundación, carruajes antiguos y documentos de gran valor cultural.",
-    imagen: "https://upload.wikimedia.org/wikipedia/commons/3/35/Museo_Municipal_de_Bellas_Artes_de_Tandil.JPG"
+    imagen: "https://upload.wikimedia.org/wikipedia/commons/3/35/Museo_Municipal_de_Bellas_Artes_de_Tandil.JPG",
+    coords: [-37.3294, -59.1364]
   },
   {
     id: 7,

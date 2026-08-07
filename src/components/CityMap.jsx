@@ -1,17 +1,15 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import { lugaresTandil } from '../data/tandilData';
+import { lugaresTandil } from '../data/tandilData.js';
 
-import markerIcon from 'leaflet/dist/images/marker-icon.png';
-import markerShadow from 'leaflet/dist/images/marker-shadow.png';
-
-const DefaultIcon = L.icon({
-    iconUrl: markerIcon,
-    shadowUrl: markerShadow,
-    iconAnchor: [12, 41]
+// 1. Creas tu ícono personalizado con la imagen que quieras
+const iconoPersonalizado = new L.Icon({
+    iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', // CAMBIAR EL PIN
+    iconSize: [26, 26],
+    iconAnchor: [18, 36],
+    popupAnchor: [0, -36]
 });
-L.Marker.prototype.options.icon = DefaultIcon;
 
 export default function CityMap() {
     const cityCenter = [-37.32167, -59.13316]; // Coordenadas de Tandil
@@ -30,11 +28,13 @@ export default function CityMap() {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
 
-                {/* Recorremos tus datos para poner un marcador por cada lugar */}
                 {lugaresTandil.map(lugar => (
-                    // Asegúrate de que tus objetos en tandilData tengan una propiedad 'coords: [lat, lng]'
                     lugar.coords && (
-                        <Marker key={lugar.id} position={lugar.coords}>
+                        <Marker
+                            key={lugar.id}
+                            position={lugar.coords}
+                            icon={iconoPersonalizado} // 2. Se lo pasas a cada Marker
+                        >
                             <Popup>
                                 <strong>{lugar.nombre}</strong>
                                 <p style={{ margin: '5px 0 0 0' }}>{lugar.descripcion}</p>

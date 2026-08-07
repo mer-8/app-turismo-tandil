@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { lugaresTandil } from './data/tandilData';
-import CityMap from './map/CityMap.jsx';
+import CityMap from './components/CityMap.jsx';
 import './App.css';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
