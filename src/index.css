@@ -115,3 +115,14 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+.leaflet-control-attribution {
+  font-size: 0px !important;
+  background: rgba(255, 255, 255, 0.6) !important;
+  max-width: 140px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 2px 5px !important;
+}
+
