@@ -7,6 +7,7 @@ import Hero from './components/Hero';
 import Filtros from './components/Filtros';
 import CardLugar from './components/CardLugar';
 import ModalDetalle from './components/ModalDetalle';
+import AdminPanel from './components/AdminPanel';
 
 function App() {
     const [busqueda, setBusqueda] = useState("");
@@ -15,15 +16,17 @@ function App() {
     const [categoria, setCategoria] = useState("");
     const [subCategoria, setSubCategoria] = useState("");
     const [lugarSeleccionado, setLugarSeleccionado] = useState(null);
+    
+    // Lista de lugares (puedes agregar nuevos desde el admin)
+    const [listaLugares, setListaLugares] = useState(lugaresTandil);
+
     const [favoritos, setFavoritos] = useState(() => {
         const guardados = localStorage.getItem('tandil_favoritos');
         return guardados ? JSON.parse(guardados) : [];
     });
 
-    // Estado para saber si estamos visualizando solo los favoritos
     const [verFavoritos, setVerFavoritos] = useState(false);
 
-    // Guardar favoritos automáticamente en localStorage cuando cambien
     useEffect(() => {
         localStorage.setItem('tandil_favoritos', JSON.stringify(favoritos));
     }, [favoritos]);
@@ -49,7 +52,6 @@ function App() {
         }
     };
 
-    // Función para alternar favorito
     const toggleFavorito = (idLugar) => {
         if (favoritos.includes(idLugar)) {
             setFavoritos(favoritos.filter(id => id !== idLugar));
@@ -58,8 +60,28 @@ function App() {
         }
     };
 
-    // Filtrado avanzado por texto, categoría principal, subtipo y sección de favoritos
-    const lugaresFiltrados = lugaresTandil.filter(lugar => {
+    // Función para agregar un nuevo lugar desde el panel de admin
+    const agregarLugar = (nuevoLugar) => {
+        setListaLugares([nuevoLugar, ...listaLugares]);
+    };
+
+    // Función para eliminar un lugar desde el panel de admin
+    const eliminarLugar = (idLugar) => {
+        setListaLugares(listaLugares.filter(lugar => lugar.id !== idLugar));
+    };
+
+    // Acceso secreto al panel de administración mediante doble clic en el footer 
+    const abrirAdminSecreto = () => {
+        const password = prompt("Ingresá la contraseña de administración:");
+        if (password === "admin123") { // TODO: ELIMINAR CONTRASEÑA Haganme ACORDAR
+            setVistaActiva('admin');
+        } else if (password !== null) {
+            alert("Contraseña incorrecta.");
+        }
+    };
+
+    // Filtrado avanzado sobre la lista actual de lugares
+    const lugaresFiltrados = listaLugares.filter(lugar => {
         const coincideBusqueda = lugar.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
                                  lugar.tipo.toLowerCase().includes(busqueda.toLowerCase());
         
@@ -71,94 +93,111 @@ function App() {
     });
 
     return (
-        <div style={{ background: '#efede6', minHeight: '100vh', paddingBottom: '40px' }}>
+        <div style={{ background: '#efede6', minHeight: '100vh', paddingBottom: '40px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
 
-            {/* Navbar Componente */}
-            <Navbar 
-                vistaActiva={vistaActiva} 
-                setVistaActiva={setVistaActiva} 
-                verFavoritos={verFavoritos} 
-                setVerFavoritos={setVerFavoritos} 
-            />
+            <div>
+                {/* Navbar Componente (Sin botón de admin visible) */}
+                <Navbar 
+                    vistaActiva={vistaActiva} 
+                    setVistaActiva={setVistaActiva} 
+                    verFavoritos={verFavoritos} 
+                    setVerFavoritos={setVerFavoritos} 
+                />
 
-            {/* Vista activa: Inicio vs Mapa */}
-            {vistaActiva === 'inicio' ? (
-                <>
-                    {/* Hero Componente */}
-                    <Hero busqueda={busqueda} setBusqueda={setBusqueda} />
+                {/* Renderizado según la vista activa */}
+                {vistaActiva === 'inicio' && (
+                    <>
+                        <Hero busqueda={busqueda} setBusqueda={setBusqueda} />
+                        <Filtros 
+                            categoria={categoria} 
+                            setCategoria={setCategoria} 
+                            subCategoria={subCategoria} 
+                            setSubCategoria={setSubCategoria} 
+                        />
 
-                    {/* Filtros Componente */}
-                    <Filtros 
-                        categoria={categoria} 
-                        setCategoria={setCategoria} 
-                        subCategoria={subCategoria} 
-                        setSubCategoria={setSubCategoria} 
+                        <main style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 20px' }}>
+                            <h3 style={{ fontSize: '22px', color: '#1a3322', marginBottom: '20px' }}>
+                                {verFavoritos ? 'Tus Lugares Favoritos' : 'Puntos Destacados'}
+                            </h3>
+
+                            <div style={{
+                                display: 'grid',
+                                gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+                                gap: '25px',
+                                marginBottom: '50px'
+                            }}>
+                                {lugaresFiltrados.length > 0 ? (
+                                    lugaresFiltrados.map((lugar) => (
+                                        <CardLugar 
+                                            key={lugar.id}
+                                            lugar={lugar}
+                                            onVerDetalle={(l) => setLugarSeleccionado(l)}
+                                            esFavorito={favoritos.includes(lugar.id)}
+                                            onToggleFavorito={toggleFavorito}
+                                        />
+                                    ))
+                                ) : (
+                                    <p style={{ gridColumn: '1 / -1', textAlign: 'center', color: '#888', fontSize: '16px' }}>
+                                        {verFavoritos ? 'No tenés lugares guardados en favoritos todavía.' : 'No se encontraron lugares.'}
+                                    </p>
+                                )}
+                            </div>
+
+                            <div style={{ textAlign: 'center' }}>
+                                <button
+                                    onClick={instalarApp}
+                                    style={{
+                                        maxWidth: '600px',
+                                        padding: '16px 20px',
+                                        border: 'none',
+                                        borderRadius: '4px',
+                                        background: '#5d7d65',
+                                        color: '#ffffff',
+                                        fontSize: '16px',
+                                        fontWeight: 'bold',
+                                        cursor: 'pointer',
+                                        boxShadow: '0 4px 12px rgba(93, 125, 101, 0.3)',
+                                        transition: 'background 0.3s'
+                                    }}
+                                >
+                                    Instalar app en el celular
+                                </button>
+                            </div>
+                        </main>
+                    </>
+                )}
+
+                {vistaActiva === 'mapa' && (
+                    <div style={{ paddingTop: '100px' }}>
+                        <CityMap />
+                    </div>
+                )}
+
+                {vistaActiva === 'admin' && (
+                    <AdminPanel 
+                        listaLugares={listaLugares} 
+                        onAgregarLugar={agregarLugar} 
+                        onEliminarLugar={eliminarLugar} 
                     />
+                )}
+            </div>
 
-                    {/* Contenido Principal (Tarjetas) */}
-                    <main style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 20px' }}>
-                        <h3 style={{ fontSize: '22px', color: '#1a3322', marginBottom: '20px' }}>
-                            {verFavoritos ? 'Tus Lugares Favoritos' : 'Puntos Destacados'}
-                        </h3>
-
-                        <div style={{
-                            display: 'grid',
-                            gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-                            gap: '25px',
-                            marginBottom: '50px'
-                        }}>
-                            {lugaresFiltrados.length > 0 ? (
-                                lugaresFiltrados.map((lugar) => (
-                                    <CardLugar 
-                                        key={lugar.id}
-                                        lugar={lugar}
-                                        onVerDetalle={(l) => setLugarSeleccionado(l)}
-                                        esFavorito={favoritos.includes(lugar.id)}
-                                        onToggleFavorito={toggleFavorito}
-                                    />
-                                ))
-                            ) : (
-                                <p style={{ gridColumn: '1 / -1', textAlign: 'center', color: '#888', fontSize: '16px' }}>
-                                    {verFavoritos ? 'No tenés lugares guardados en favoritos todavía.' : 'No se encontraron lugares.'}
-                                </p>
-                            )}
-                        </div>
-
-                        {/* Botón Instalar PWA */}
-                        <div style={{ textAlign: 'center' }}>
-                            <button
-                                onClick={instalarApp}
-                                style={{
-                                    maxWidth: '600px',
-                                    padding: '16px 20px',
-                                    border: 'none',
-                                    borderRadius: '4px',
-                                    background: '#5d7d65',
-                                    color: '#ffffff',
-                                    fontSize: '16px',
-                                    fontWeight: 'bold',
-                                    cursor: 'pointer',
-                                    boxShadow: '0 4px 12px rgba(93, 125, 101, 0.3)',
-                                    transition: 'background 0.3s'
-                                }}
-                            >
-                                Instalar app en el celular
-                            </button>
-                        </div>
-                    </main>
-                </>
-            ) : (
-                /* Vista del Mapa */
-                <div style={{ paddingTop: '100px' }}>
-                    <CityMap />
-                </div>
-            )}
-
-            {/* Modal de Detalle Componente */}
+            {/* Modal de Detalle */}
             <ModalDetalle 
                 lugar={lugarSeleccionado} 
                 onClose={() => setLugarSeleccionado(null)} 
             />
+
+            {/* Footer con Acceso Oculto (Doble clic para entrar al admin) */}
+            <footer style={{ textAlign: 'center', padding: '30px 20px 10px 20px', color: '#777', fontSize: '13px' }}>
+                <p 
+                    onDoubleClick={abrirAdminSecreto}
+                    style={{ cursor: 'default', userSelect: 'none', margin: 0 }}
+                    title="Panel municipal"
+                >
+                    © 2026 Tandil Turismo - Todos los derechos reservados.
+                </p>
+            </footer>
         </div>
     );
 }

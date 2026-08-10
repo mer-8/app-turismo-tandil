@@ -3,13 +3,24 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { lugaresTandil } from '../data/tandilData.js';
 
-// 1. Creas tu ícono personalizado con la imagen que quieras
-const iconoPersonalizado = new L.Icon({
-    iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', // CAMBIAR EL PIN
-    iconSize: [26, 26],
-    iconAnchor: [18, 36],
-    popupAnchor: [0, -36]
-});
+const crearIconoColor = (color) => {
+    return new L.DivIcon({
+        html: `<div style="background-color: ${color}; width: 16px; height: 16px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 6px rgba(0,0,0,0.4);"></div>`,
+        className: 'custom-div-icon',
+        iconSize: [20, 20],
+        iconAnchor: [10, 10],
+        popupAnchor: [0, -10]
+    });
+};
+
+// Definición de colores por categoría
+const iconosPorCategoria = {
+    'Paseo': crearIconoColor('#2ecc71'),      
+    'Gastronomía': crearIconoColor('#8e44ad'), 
+    'Cultura': crearIconoColor('#f1c40f'),    
+    'Aventura': crearIconoColor('#e67e22'),   
+    'Default': crearIconoColor('#3498db')      
+};
 
 export default function CityMap() {
     const cityCenter = [-37.32167, -59.13316]; // Coordenadas de Tandil
@@ -33,11 +44,16 @@ export default function CityMap() {
                         <Marker
                             key={lugar.id}
                             position={lugar.coords}
-                            icon={iconoPersonalizado} // 2. Se lo pasas a cada Marker
+                            // Selecciona el icono basado en el tipo del lugar
+                            icon={iconosPorCategoria[lugar.tipo] || iconosPorCategoria['Default']}
                         >
                             <Popup>
-                                <strong>{lugar.nombre}</strong>
-                                <p style={{ margin: '5px 0 0 0' }}>{lugar.descripcion}</p>
+                                <div style={{ textAlign: 'center' }}>
+                                    <strong style={{ display: 'block', marginBottom: '5px' }}>{lugar.nombre}</strong>
+                                    <span style={{ fontSize: '11px', color: '#555', background: '#f4f4f4', padding: '2px 6px', borderRadius: '4px' }}>
+                                        {lugar.tipo}
+                                    </span>
+                                </div>
                             </Popup>
                         </Marker>
                     )
