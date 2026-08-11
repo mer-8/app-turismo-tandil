@@ -41,7 +41,9 @@ function Filtros({ categoria, setCategoria, subCategoria, setSubCategoria }) {
                         { label: 'Cervecerías', val: 'Cervecería' },
                         { label: 'Picadas y Quesos', val: 'Picadas' },
                         { label: 'Restaurantes', val: 'Restaurante' },
-                        { label: 'Cafeterías', val: 'Cafetería' }
+                        { label: 'Cafeterías', val: 'Cafetería' },
+                        { label: 'Parrillas', val: 'Parrillas' }
+
                     ].map((sub) => (
                         <span 
                             key={sub.val}

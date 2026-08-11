@@ -1,7 +1,7 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import { lugaresTandil } from '../data/tandilData.js';
+//import { lugaresTandil } from '../data/tandilData.js';
 
 const crearIconoColor = (color) => {
     return new L.DivIcon({
@@ -22,7 +22,7 @@ const iconosPorCategoria = {
     'Default': crearIconoColor('#3498db')      
 };
 
-export default function CityMap() {
+export default function CityMap({ lugares = [] }) {
     const cityCenter = [-37.32167, -59.13316]; // Coordenadas de Tandil
 
     return (
@@ -39,7 +39,7 @@ export default function CityMap() {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
 
-                {lugaresTandil.map(lugar => (
+                {lugares.map(lugar => (
                     lugar.coords && (
                         <Marker
                             key={lugar.id}

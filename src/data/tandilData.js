@@ -1,4 +1,4 @@
-export const lugaresTandil = [
+/*export const lugaresTandil = [
   {
     id: 1,
     nombre: "El Centinela",
@@ -97,4 +97,4 @@ export const lugaresTandil = [
     infoAmpliada: "Cafetería de especialidad con opciones de pastelería artesanal, tortas, licuados y mesas con vista directa a la Plaza Independencia.",
     imagen: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb"
   }
-];
+];*/
