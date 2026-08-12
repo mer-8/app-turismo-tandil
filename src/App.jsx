@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { lugaresTandil } from './data/tandilData';
+//import { lugaresTandil } from './data/tandilData';
 import CityMap from './components/CityMap.jsx';
 import './App.css';
 import Navbar from './components/Navbar';
@@ -18,7 +18,8 @@ function App() {
     const [lugarSeleccionado, setLugarSeleccionado] = useState(null);
     
     // Lista de lugares (puedes agregar nuevos desde el admin)
-    const [listaLugares, setListaLugares] = useState(lugaresTandil);
+    const [listaLugares, setListaLugares] = useState([]);
+    const [, setCargando] = useState(true);
 
     const [favoritos, setFavoritos] = useState(() => {
         const guardados = localStorage.getItem('tandil_favoritos');
@@ -27,10 +28,31 @@ function App() {
 
     const [verFavoritos, setVerFavoritos] = useState(false);
 
+    //Cargar la base de datos desde PHP al montar la app
+    useEffect(() => {
+        const cargarLugaresBD = async () => {
+            try {
+                const respuesta = await fetch('http://localhost/api-turismo-tandil/obtener_lugares.php');
+                if (!respuesta.ok) throw new Error('Error al conectar con la API');
+                
+                const datos = await respuesta.json();
+                setListaLugares(datos); // Guardamos la lista de MySQL en el estado
+            } catch (error) {
+                console.error('Error cargando base de datos:', error);
+            } finally {
+                setCargando(false);
+            }
+        };
+
+        cargarLugaresBD();
+    }, []);
+
+    //Sincronizar los favoritos en el LocalStorage
     useEffect(() => {
         localStorage.setItem('tandil_favoritos', JSON.stringify(favoritos));
     }, [favoritos]);
 
+    //Manejo de la instalación de la PWA
     useEffect(() => {
         const handleBeforeInstallPrompt = (event) => {
             event.preventDefault();
@@ -167,7 +189,7 @@ function App() {
 
                 {vistaActiva === 'mapa' && (
                     <div style={{ paddingTop: '100px' }}>
-                        <CityMap />
+                        <CityMap lugares={listaLugares}/>
                     </div>
                 )}
 

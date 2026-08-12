@@ -13,15 +13,14 @@ function AdminPanel({ listaLugares, onAgregarLugar, onEliminarLugar }) {
     // Estado para el buscador de eliminación
     const [busquedaAdmin, setBusquedaAdmin] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (!nombre || !direccion) {
             alert('Por favor completá al menos el nombre y la dirección.');
             return;
         }
 
-        const nuevoLugar = {
-            id: Date.now(),
+      const nuevoLugar = {
             nombre,
             tipo,
             subtipo,
@@ -31,8 +30,37 @@ function AdminPanel({ listaLugares, onAgregarLugar, onEliminarLugar }) {
             horarios,
             imagen: imagen || 'https://images.unsplash.com/photo-1506744038136-46273834b3fb'
         };
+        
+        try {
+            const respuesta = await fetch('http://localhost/api-turismo-tandil/agregar_lugar.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(nuevoLugar)
+            });
 
-        onAgregarLugar(nuevoLugar);
+            const resultado = await respuesta.json();
+
+            if (resultado.exito) {
+                onAgregarLugar(resultado.lugar); // Agrega a la vista el objeto guardado con ID de MySQL
+                alert('¡Lugar guardado con éxito en la base de datos!');
+                
+                // Limpiar formulario
+                setNombre('');
+                setSubtipo('');
+                setDescripcion('');
+                setDireccion('');
+                setHorarios('');
+                setImagen('');
+            } else {
+                alert('Error al guardar: ' + resultado.error);
+            }
+        } catch (error) {
+            console.error('Error de red:', error);
+            alert('No se pudo conectar con el servidor.');
+        }
+
+
+       /* onAgregarLugar(nuevoLugar);
         alert('¡Lugar agregado con éxito!');
         
         // Limpiar formulario
@@ -41,7 +69,7 @@ function AdminPanel({ listaLugares, onAgregarLugar, onEliminarLugar }) {
         setDescripcion('');
         setDireccion('');
         setHorarios('');
-        setImagen('');
+        setImagen('');*/
     };
 
     // Filtrar lugares para el panel de borrado
