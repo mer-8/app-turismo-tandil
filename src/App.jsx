@@ -60,17 +60,15 @@ function App() {
         }
     };
 
-    // Función para agregar un nuevo lugar desde el panel de admin
     const agregarLugar = (nuevoLugar) => {
         setListaLugares([nuevoLugar, ...listaLugares]);
     };
 
-    // Función para eliminar un lugar desde el panel de admin
     const eliminarLugar = (idLugar) => {
         setListaLugares(listaLugares.filter(lugar => lugar.id !== idLugar));
     };
 
-    // Acceso secreto al panel de administración mediante doble clic en el footer 
+    
     const abrirAdminSecreto = () => {
         const password = prompt("Ingresá la contraseña de administración:");
         if (password === "admin123") { // TODO: ELIMINAR CONTRASEÑA Haganme ACORDAR
