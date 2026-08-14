@@ -1,0 +1,32 @@
+==================================================
+  CONFIGURACIÓN DE LA API PHP (BACKEND)
+==================================================
+
+Para que la aplicación web pueda consultar y guardar datos en MySQL, seguir estos pasos:
+
+1. UBICACIÓN DE LA API:
+   Copiar o mover esta carpeta ('api-turismo-tandil') dentro del directorio de Apache:
+   - XAMPP: C:\xampp\htdocs\
+   - WAMP:  C:\wamp64\www\
+   - Laragon: C:\laragon\www\
+
+   La ruta final debe quedar accesible desde:
+   http://localhost/api-turismo-tandil/obtener_lugares.php
+
+2. BASE DE DATOS (MySQL):
+   - Iniciar Apache y MySQL desde el panel de XAMPP.
+   - Ingresar a phpMyAdmin (http://localhost/phpmyadmin).
+   - Crear una base de datos llamada: turismo_tandil
+   - Crear la tabla 'lugares' con las columnas correspondientes (o importar el script SQL si se adjunta).
+
+3. EJECUCIÓN DEL FRONTEND:
+   - Iniciar React normalmente con 'npm run dev'.
+   - Asegurarse de que Apache esté corriendo para recibir las peticiones HTTP.
+
+4. IMPORTAR BASE DE DATOS (MySQL):
+   - Iniciar Apache y MySQL desde el panel de XAMPP.
+   - Ingresar a phpMyAdmin (http://localhost/phpmyadmin).
+   - Ir a la pestaña "Importar" (Import) en el menú superior.
+   - Seleccionar el archivo 'turismo_tandil.sql' (ubicado dentro de esta misma carpeta 'api-turismo-tandil').
+   - Hacer clic en "Continuar" / "Importar". 
+   (El script creará automáticamente la base de datos 'turismo_tandil', la tabla 'lugares' y los datos de prueba).   
