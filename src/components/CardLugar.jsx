@@ -1,4 +1,4 @@
-function CardLugar({ lugar, onVerDetalle, esFavorito, onToggleFavorito }) {
+function CardLugar({ lugar, onVerDetalle }) {
     return (
         <div style={{
             background: '#e6efe9',
@@ -9,32 +9,6 @@ function CardLugar({ lugar, onVerDetalle, esFavorito, onToggleFavorito }) {
             flexDirection: 'column',
             position: 'relative'
         }}>
-            {/* Botón de Favorito (Corazón) en la esquina superior derecha de la imagen */}
-            <button
-                onClick={() => onToggleFavorito(lugar.id)}
-                style={{
-                    position: 'absolute',
-                    top: '12px',
-                    right: '12px',
-                    background: 'rgba(255, 255, 255, 0.85)',
-                    border: 'none',
-                    borderRadius: '50%',
-                    width: '36px',
-                    height: '36px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    cursor: 'pointer',
-                    fontSize: '18px',
-                    boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
-                    zIndex: 2,
-                    transition: 'transform 0.2s'
-                }}
-                title={esFavorito ? "Quitar de favoritos" : "Añadir a favoritos"}
-            >
-                {esFavorito ? '❤️' : '🤍'}
-            </button>
-
             {/* Imagen de la tarjeta */}
             <div style={{
                 height: '160px',

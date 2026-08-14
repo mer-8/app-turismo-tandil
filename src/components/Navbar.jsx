@@ -1,4 +1,13 @@
-function Navbar({ vistaActiva, setVistaActiva, verFavoritos, setVerFavoritos }) {
+import { useState } from 'react';
+
+function Navbar({ vistaActiva, setVistaActiva }) {
+    const [menuAbierto, setMenuAbierto] = useState(false);
+
+    const cambiarVista = (vista) => {
+        setVistaActiva(vista);
+        setMenuAbierto(false); // Cierra el menú al hacer clic en una opción (ideal para celu)
+    };
+
     return (
         <header style={{
             display: 'flex',
@@ -17,10 +26,7 @@ function Navbar({ vistaActiva, setVistaActiva, verFavoritos, setVerFavoritos }) 
         }}>
             {/* Logo / Título */}
             <h2
-                onClick={() => {
-                    setVistaActiva('inicio');
-                    setVerFavoritos(false);
-                }}
+                onClick={() => cambiarVista('inicio')}
                 style={{
                     margin: 0,
                     fontSize: '22px',
@@ -51,17 +57,39 @@ function Navbar({ vistaActiva, setVistaActiva, verFavoritos, setVerFavoritos }) 
                 <span>Tandil <span style={{ fontWeight: '400', color: '#5d7d65' }}>Turismo</span></span>
             </h2>
 
+            {/* Ícono de la Hamburguesa (Solo se ve en celulares por CSS) */}
+            <div 
+                onClick={() => setMenuAbierto(!menuAbierto)}
+                className="hamburger-btn"
+                style={{
+                    display: 'none',
+                    cursor: 'pointer',
+                    fontSize: '26px',
+                    color: '#1a3322',
+                    userSelect: 'none'
+                }}
+            >
+                {menuAbierto ? '✕' : '☰'}
+            </div>
+
             {/* Menú de navegación */}
-            <nav style={{ display: 'flex', gap: '25px', fontSize: '15px', color: '#333', fontWeight: '600', alignItems: 'center' }}>
+            <nav 
+                className={`nav-menu ${menuAbierto ? 'activo' : ''}`}
+                style={{ 
+                    display: 'flex', 
+                    gap: '25px', 
+                    fontSize: '15px', 
+                    color: '#333', 
+                    fontWeight: '600', 
+                    alignItems: 'center' 
+                }}
+            >
                 <span
-                    onClick={() => {
-                        setVistaActiva('inicio');
-                        setVerFavoritos(false);
-                    }}
+                    onClick={() => cambiarVista('inicio')}
                     style={{
                         cursor: 'pointer',
-                        background: (vistaActiva === 'inicio' && !verFavoritos) ? '#5d7d65' : 'transparent',
-                        color: (vistaActiva === 'inicio' && !verFavoritos) ? '#fff' : '#333',
+                        background: vistaActiva === 'inicio' ? '#5d7d65' : 'transparent',
+                        color: vistaActiva === 'inicio' ? '#fff' : '#333',
                         padding: '8px 20px',
                         borderRadius: '8px',
                         transition: 'all 0.2s'
@@ -71,24 +99,21 @@ function Navbar({ vistaActiva, setVistaActiva, verFavoritos, setVerFavoritos }) 
                 </span>
 
                 <span
-                    onClick={() => {
-                        setVistaActiva('inicio');
-                        setVerFavoritos(true);
-                    }}
+                    onClick={() => cambiarVista('eventos')}
                     style={{
                         cursor: 'pointer',
-                        background: verFavoritos ? '#5d7d65' : 'transparent',
-                        color: verFavoritos ? '#fff' : '#333',
+                        background: vistaActiva === 'eventos' ? '#5d7d65' : 'transparent',
+                        color: vistaActiva === 'eventos' ? '#fff' : '#333',
                         padding: '8px 20px',
                         borderRadius: '8px',
                         transition: 'all 0.2s'
                     }}
                 >
-                    Favoritos 
+                    Eventos
                 </span>
 
                 <span
-                    onClick={() => setVistaActiva('mapa')}
+                    onClick={() => cambiarVista('mapa')}
                     style={{
                         cursor: 'pointer',
                         background: vistaActiva === 'mapa' ? '#5d7d65' : 'transparent',

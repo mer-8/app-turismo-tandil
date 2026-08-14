@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-//import { lugaresTandil } from './data/tandilData';
 import CityMap from './components/CityMap.jsx';
 import './App.css';
 import Navbar from './components/Navbar';
@@ -17,8 +16,9 @@ function App() {
     const [subCategoria, setSubCategoria] = useState("");
     const [lugarSeleccionado, setLugarSeleccionado] = useState(null);
     
-    // Lista de lugares (puedes agregar nuevos desde el admin)
+    // Lista de lugares y eventos
     const [listaLugares, setListaLugares] = useState([]);
+    const [listaEventos, setListaEventos] = useState([]);
     const [, setCargando] = useState(true);
 
     const [favoritos, setFavoritos] = useState(() => {
@@ -28,7 +28,7 @@ function App() {
 
     const [verFavoritos, setVerFavoritos] = useState(false);
 
-    //Cargar la base de datos desde PHP al montar la app
+    // Cargar la base de datos desde PHP al montar la app
     useEffect(() => {
         const cargarLugaresBD = async () => {
             try {
@@ -36,7 +36,7 @@ function App() {
                 if (!respuesta.ok) throw new Error('Error al conectar con la API');
                 
                 const datos = await respuesta.json();
-                setListaLugares(datos); // Guardamos la lista de MySQL en el estado
+                setListaLugares(datos);
             } catch (error) {
                 console.error('Error cargando base de datos:', error);
             } finally {
@@ -44,15 +44,27 @@ function App() {
             }
         };
 
+        const cargarEventosBD = async () => {
+            try {
+                const respuesta = await fetch('http://localhost/api-turismo-tandil/obtener_eventos.php');
+                if (!respuesta.ok) throw new Error('Error al conectar con la API de eventos');
+                const datos = await respuesta.json();
+                setListaEventos(datos);
+            } catch (error) {
+                console.error('Error cargando eventos:', error);
+            }
+        };
+
         cargarLugaresBD();
+        cargarEventosBD();
     }, []);
 
-    //Sincronizar los favoritos en el LocalStorage
+    // Sincronizar los favoritos en el LocalStorage
     useEffect(() => {
         localStorage.setItem('tandil_favoritos', JSON.stringify(favoritos));
     }, [favoritos]);
 
-    //Manejo de la instalación de la PWA
+    // Manejo de la instalación de la PWA
     useEffect(() => {
         const handleBeforeInstallPrompt = (event) => {
             event.preventDefault();
@@ -89,11 +101,10 @@ function App() {
     const eliminarLugar = (idLugar) => {
         setListaLugares(listaLugares.filter(lugar => lugar.id !== idLugar));
     };
-
     
     const abrirAdminSecreto = () => {
         const password = prompt("Ingresá la contraseña de administración:");
-        if (password === "admin123") { // TODO: ELIMINAR CONTRASEÑA Haganme ACORDAR
+        if (password === "admin123") {
             setVistaActiva('admin');
         } else if (password !== null) {
             alert("Contraseña incorrecta.");
@@ -112,11 +123,23 @@ function App() {
         return coincideBusqueda && coincideCategoria && coincideSubCategoria && coincideFavorito;
     });
 
+    // Agrupar eventos por mes y año
+    const eventosPorMes = listaEventos.reduce((acumulador, evento) => {
+        const fechaObj = new Date(evento.fecha + 'T00:00:00');
+        const mesAnio = fechaObj.toLocaleString('es-ES', { month: 'long', year: 'numeric' });
+        const mesFormateado = mesAnio.charAt(0).toUpperCase() + mesAnio.slice(1);
+
+        if (!acumulador[mesFormateado]) {
+            acumulador[mesFormateado] = [];
+        }
+        acumulador[mesFormateado].push(evento);
+        return acumulador;
+    }, {});
+
     return (
         <div style={{ background: '#efede6', minHeight: '100vh', paddingBottom: '40px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
 
             <div>
-                {/* Navbar Componente (Sin botón de admin visible) */}
                 <Navbar 
                     vistaActiva={vistaActiva} 
                     setVistaActiva={setVistaActiva} 
@@ -124,7 +147,6 @@ function App() {
                     setVerFavoritos={setVerFavoritos} 
                 />
 
-                {/* Renderizado según la vista activa */}
                 {vistaActiva === 'inicio' && (
                     <>
                         <Hero busqueda={busqueda} setBusqueda={setBusqueda} />
@@ -135,15 +157,16 @@ function App() {
                             setSubCategoria={setSubCategoria} 
                         />
 
-                        <main style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 20px' }}>
+                        <main style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 15px' }}>
                             <h3 style={{ fontSize: '22px', color: '#1a3322', marginBottom: '20px' }}>
                                 {verFavoritos ? 'Tus Lugares Favoritos' : 'Puntos Destacados'}
                             </h3>
 
+                            {/* Grilla adaptada para celulares con auto-fit y minmax flexible */}
                             <div style={{
                                 display: 'grid',
-                                gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-                                gap: '25px',
+                                gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                                gap: '20px',
                                 marginBottom: '50px'
                             }}>
                                 {lugaresFiltrados.length > 0 ? (
@@ -167,6 +190,7 @@ function App() {
                                 <button
                                     onClick={instalarApp}
                                     style={{
+                                        width: '100%',
                                         maxWidth: '600px',
                                         padding: '16px 20px',
                                         border: 'none',
@@ -185,6 +209,71 @@ function App() {
                             </div>
                         </main>
                     </>
+                )}
+
+                {vistaActiva === 'eventos' && (
+                    <main style={{ maxWidth: '1100px', margin: '100px auto 40px auto', padding: '0 15px' }}>
+                        <h2 style={{ fontSize: '26px', color: '#1a3322', marginBottom: '30px' }}>
+                            📅 Próximos Eventos en Tandil
+                        </h2>
+                        
+                        {Object.keys(eventosPorMes).length > 0 ? (
+                            Object.keys(eventosPorMes).map((mes) => (
+                                <div key={mes} style={{ marginBottom: '40px' }}>
+                                    <h3 style={{ 
+                                        fontSize: '20px', 
+                                        color: '#5d7d65', 
+                                        borderBottom: '2px solid #5d7d65', 
+                                        paddingBottom: '8px', 
+                                        marginBottom: '20px',
+                                        textTransform: 'capitalize'
+                                    }}>
+                                        {mes}
+                                    </h3>
+
+                                    <div style={{
+                                        display: 'grid',
+                                        gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                                        gap: '20px'
+                                    }}>
+                                        {eventosPorMes[mes].map((evento) => (
+                                            <div key={evento.id} style={{
+                                                background: '#e6efe9',
+                                                borderRadius: '8px',
+                                                overflow: 'hidden',
+                                                boxShadow: '0 4px 10px rgba(0,0,0,0.06)',
+                                                display: 'flex',
+                                                flexDirection: 'column'
+                                            }}>
+                                                <div style={{
+                                                    height: '140px',
+                                                    background: '#c4d7cd',
+                                                    backgroundImage: evento.imagen ? `url(${evento.imagen})` : 'none',
+                                                    backgroundSize: 'cover',
+                                                    backgroundPosition: 'center'
+                                                }}></div>
+                                                <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', flex: 1 }}>
+                                                    <span style={{ fontSize: '13px', color: '#6d8a74', fontWeight: 'bold', marginBottom: '6px' }}>
+                                                         {evento.fecha} •  {evento.lugar}
+                                                    </span>
+                                                    <h4 style={{ margin: '0 0 10px 0', fontSize: '18px', color: '#1a3322' }}>
+                                                        {evento.nombre}
+                                                    </h4>
+                                                    <p style={{ margin: 0, fontSize: '14px', color: '#4a5b51', lineHeight: '1.5' }}>
+                                                        {evento.descripcion}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))
+                        ) : (
+                            <p style={{ textAlign: 'center', color: '#888', fontSize: '16px' }}>
+                                No hay eventos programados por el momento.
+                            </p>
+                        )}
+                    </main>
                 )}
 
                 {vistaActiva === 'mapa' && (
@@ -208,7 +297,7 @@ function App() {
                 onClose={() => setLugarSeleccionado(null)} 
             />
 
-            {/* Footer con Acceso Oculto (Doble clic para entrar al admin) */}
+            {/* Footer */}
             <footer style={{ textAlign: 'center', padding: '30px 20px 10px 20px', color: '#777', fontSize: '13px' }}>
                 <p 
                     onDoubleClick={abrirAdminSecreto}
