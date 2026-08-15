@@ -7,6 +7,7 @@ import Filtros from './components/Filtros';
 import CardLugar from './components/CardLugar';
 import ModalDetalle from './components/ModalDetalle';
 import AdminPanel from './components/AdminPanel';
+import { eventosMock } from './eventsMock';
 
 function App() {
     const [busqueda, setBusqueda] = useState("");
@@ -28,22 +29,26 @@ function App() {
 
     const [verFavoritos, setVerFavoritos] = useState(false);
 
-    // Cargar la base de datos desde PHP al montar la app
+    // Cargar datos al montar la app (con PHP comentado y eventos mockeados)
     useEffect(() => {
+        // Cargamos los eventos desde el mock para que Vercel no falle
+        setListaEventos(eventosMock);
+
         const cargarLugaresBD = async () => {
             try {
                 const respuesta = await fetch('http://localhost/api-turismo-tandil/obtener_lugares.php');
                 if (!respuesta.ok) throw new Error('Error al conectar con la API');
-                
                 const datos = await respuesta.json();
                 setListaLugares(datos);
             } catch (error) {
-                console.error('Error cargando base de datos:', error);
+                console.error('Error cargando base de datos (usando local):', error);
             } finally {
                 setCargando(false);
             }
         };
 
+        /* 
+        // CÓDIGO ORIGINAL COMENTADO (Por si querés usarlo después con XAMPP)
         const cargarEventosBD = async () => {
             try {
                 const respuesta = await fetch('http://localhost/api-turismo-tandil/obtener_eventos.php');
@@ -54,9 +59,10 @@ function App() {
                 console.error('Error cargando eventos:', error);
             }
         };
+        cargarEventosBD();
+        */
 
         cargarLugaresBD();
-        cargarEventosBD();
     }, []);
 
     // Sincronizar los favoritos en el LocalStorage
@@ -162,7 +168,6 @@ function App() {
                                 {verFavoritos ? 'Tus Lugares Favoritos' : 'Puntos Destacados'}
                             </h3>
 
-                            {/* Grilla adaptada para celulares con auto-fit y minmax flexible */}
                             <div style={{
                                 display: 'grid',
                                 gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
