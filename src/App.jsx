@@ -8,6 +8,7 @@ import CardLugar from './components/CardLugar';
 import ModalDetalle from './components/ModalDetalle';
 import AdminPanel from './components/AdminPanel';
 import { eventosMock } from './eventsMock';
+import logoAetermia from './assets/logo.png';
 
 function App() {
     const [busqueda, setBusqueda] = useState("");
@@ -296,21 +297,45 @@ function App() {
                 )}
             </div>
 
-            {/* Modal de Detalle */}
+           {/* Modal de Detalle */}
             <ModalDetalle 
                 lugar={lugarSeleccionado} 
                 onClose={() => setLugarSeleccionado(null)} 
             />
 
             {/* Footer */}
-            <footer style={{ textAlign: 'center', padding: '30px 20px 10px 20px', color: '#777', fontSize: '13px' }}>
+            <footer style={{ 
+                width: '100%',
+                padding: '30px 40px', 
+                color: '#777', 
+                fontSize: '13px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                boxSizing: 'border-box'
+            }}>
+                {/* Espaciador invisible a la izquierda para equilibrar */}
+                <div style={{ width: '240px' }}></div>
+
                 <p 
                     onDoubleClick={abrirAdminSecreto}
-                    style={{ cursor: 'default', userSelect: 'none', margin: 0 }}
+                    style={{ cursor: 'default', userSelect: 'none', margin: '0 auto', textAlign: 'center' }}
                     title="Panel municipal"
                 >
                     © 2026 Tandil Turismo - Todos los derechos reservados.
                 </p>
+                
+                <img 
+                    src={logoAetermia} 
+                    alt="Aetermia Logo" 
+                    style={{ 
+                        height: '65px',        
+                        maxWidth: '240px',     
+                        objectFit: 'contain',
+                        marginLeft: 'auto'     
+                    }} 
+                />
             </footer>
         </div>
     );
