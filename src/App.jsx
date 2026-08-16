@@ -9,7 +9,6 @@ import ModalDetalle from './components/ModalDetalle';
 import AdminPanel from './components/AdminPanel';
 import { eventosMock } from './eventsMock';
 import logoAetermia from './assets/logo.png';
-import { lugaresMock } from './lugaresMock';
 
 function App() {
     const [busqueda, setBusqueda] = useState("");
@@ -31,15 +30,18 @@ function App() {
 
     const [verFavoritos, setVerFavoritos] = useState(false);
 
-    // Cargar datos al montar la app (con mocks prioritarios y base de datos comentada)
+    // Cargar datos al montar la app (con PHP comentado y eventos mockeados)
     useEffect(() => {
-        // Cargamos los mocks de inmediato para que la demo funcione perfecta
+        // Registrar visita
+            if (!sessionStorage.getItem('visita_registrada')) {
+             fetch('http://localhost/api-turismo-tandil/registrar_visita.php')
+             .catch(error => console.error('Error registrando visita:', error));
+             sessionStorage.setItem('visita_registrada', 'true');
+            }
+            
+        // Cargamos los eventos desde el mock para que Vercel no falle
         setListaEventos(eventosMock);
-        setListaLugares(lugaresMock);
-        setCargando(false);
 
-        /* 
-        // CÓDIGO ORIGINAL COMENTADO (Por si querés usarlo después con XAMPP)
         const cargarLugaresBD = async () => {
             try {
                 const respuesta = await fetch('http://localhost/api-turismo-tandil/obtener_lugares.php');
@@ -52,8 +54,9 @@ function App() {
                 setCargando(false);
             }
         };
-        cargarLugaresBD();
 
+        /* 
+        // CÓDIGO ORIGINAL COMENTADO (Por si querés usarlo después con XAMPP)
         const cargarEventosBD = async () => {
             try {
                 const respuesta = await fetch('http://localhost/api-turismo-tandil/obtener_eventos.php');
@@ -66,6 +69,8 @@ function App() {
         };
         cargarEventosBD();
         */
+
+        cargarLugaresBD();
     }, []);
 
     // Sincronizar los favoritos en el LocalStorage
@@ -120,22 +125,13 @@ function App() {
         }
     };
 
-    // Filtrado avanzado sobre la lista actual de lugares (con soporte para Recomendados y Subtipos)
+    // Filtrado avanzado sobre la lista actual de lugares
     const lugaresFiltrados = listaLugares.filter(lugar => {
         const coincideBusqueda = lugar.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
                                  lugar.tipo.toLowerCase().includes(busqueda.toLowerCase());
         
         const coincideCategoria = categoria === "" || lugar.tipo.toLowerCase() === categoria.toLowerCase();
-        
-        let coincideSubCategoria = true;
-        if (subCategoria !== "") {
-            if (subCategoria === "Recomendado") {
-                coincideSubCategoria = lugar.recomendado === true;
-            } else {
-                coincideSubCategoria = lugar.subtipo && lugar.subtipo.toLowerCase() === subCategoria.toLowerCase();
-            }
-        }
-
+        const coincideSubCategoria = subCategoria === "" || (lugar.subtipo && lugar.subtipo.toLowerCase() === subCategoria.toLowerCase());
         const coincideFavorito = !verFavoritos || favoritos.includes(lugar.id);
 
         return coincideBusqueda && coincideCategoria && coincideSubCategoria && coincideFavorito;
@@ -314,58 +310,39 @@ function App() {
                 onClose={() => setLugarSeleccionado(null)} 
             />
 
-            {/* Footer Institucional Profesional */}
+            {/* Footer */}
             <footer style={{ 
                 width: '100%',
-                padding: '40px 50px', 
-                background: '#e3dfd4', 
-                color: '#4a5b51', 
+                padding: '30px 40px', 
+                color: '#777', 
                 fontSize: '13px',
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-                gap: '30px',
+                display: 'flex',
                 alignItems: 'center',
-                boxSizing: 'border-box',
-                borderTop: '1px solid #d4cfc4',
-                marginTop: '60px'
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                boxSizing: 'border-box'
             }}>
-                {/* Columna 1: Info Institucional */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    <strong style={{ fontSize: '15px', color: '#1a3322' }}>Municipio de Tandil</strong>
-                    <p style={{ margin: 0, color: '#6d8a74', lineHeight: '1.4' }}>
-                        Dirección de Turismo • Sistema Oficial de Gestión e Información Turística.
-                    </p>
-                    <span style={{ fontSize: '11px', color: '#888' }}>
-                        Expediente N° NO-2026-00039427-MUNITAN-SSG#SG
-                    </span>
-                </div>
+                {/* Espaciador invisible a la izquierda para equilibrar */}
+                <div style={{ width: '240px' }}></div>
 
-                {/* Columna 2: Copyright y Acceso Oculto */}
-                <div style={{ textAlign: 'center' }}>
-                    <p 
-                        onDoubleClick={abrirAdminSecreto}
-                        style={{ cursor: 'default', userSelect: 'none', margin: '0 0 5px 0', fontWeight: '600', color: '#1a3322' }}
-                        title="Panel municipal"
-                    >
-                        © 2026 Tandil Turismo. Todos los derechos reservados.
-                    </p>
-                    <span style={{ fontSize: '12px', color: '#777' }}>
-                        Desarrollado bajo estándares PWA Offline-First.
-                    </span>
-                </div>
-
-                {/* Columna 3: Logo de la desarrolladora con su tamaño original destacado */}
-                <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-                    <img 
-                        src={logoAetermia} 
-                        alt="Aetermia Logo" 
-                        style={{ 
-                            height: '65px',        
-                            maxWidth: '240px',    
-                            objectFit: 'contain'
-                        }} 
-                    />
-                </div>
+                <p 
+                    onDoubleClick={abrirAdminSecreto}
+                    style={{ cursor: 'default', userSelect: 'none', margin: '0 auto', textAlign: 'center' }}
+                    title="Panel municipal"
+                >
+                    © 2026 Tandil Turismo - Todos los derechos reservados.
+                </p>
+                
+                <img 
+                    src={logoAetermia} 
+                    alt="Aetermia Logo" 
+                    style={{ 
+                        height: '65px',        
+                        maxWidth: '240px',     
+                        objectFit: 'contain',
+                        marginLeft: 'auto'     
+                    }} 
+                />
             </footer>
         </div>
     );

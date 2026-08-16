@@ -37,3 +37,14 @@ INSERT INTO `lugares` (`id`, `nombre`, `tipo`, `subtipo`, `descripcion`, `infoAm
 (4, 'Piedra Movediza', 'Paseo', 'Parque Histórico', 'Parque temático en el sitio de la legendaria piedra colapsada en 1912.', 'Lugar histórico donde se encontraba la mítica Piedra Movediza. Actualmente cuenta con un parque con escalinatas y una réplica en la cima instalada en 2007.', 'Calle Movediza y La Pastora', '08:00 a 20:00 hs', -37.31139000, -59.16722000, 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b'),
 (5, 'Época de Quesos', 'Gastronomía', 'Picadas y Almacén', 'Tradicional almacén de ramos generales famoso por sus picadas.', 'Ubicado en una esquina histórica declarada monumento provincial. Especialistas en quesos de Tandil, salames con denominación de origen y picadas artesanales.', '14 de Julio 604', '10:00 a 23:00 hs', -37.32750000, -59.13694000, 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5'),
 (6, 'Valle del Picapedrero', 'Aventura', 'Turismo Activo', 'Parque de aventuras con tirolesa, rappel y escalada en antigua cantera.', 'Ubicado en una antigua cantera recuperada. Ofrece actividades de escalada, rappel, tirolesas y puentes tibetanos rodeados de naturaleza.', 'Av. Don Bosco 2000', '10:00 a 18:30 hs', -37.36111000, -59.14167000, 'https://images.unsplash.com/photo-1522163182402-834f871fd851');
+
+-- --------------------------------------------------------
+-- Estructura de tabla para la tabla `visitas`
+-- --------------------------------------------------------
+
+DROP TABLE IF EXISTS `visitas`;
+CREATE TABLE IF NOT EXISTS `visitas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

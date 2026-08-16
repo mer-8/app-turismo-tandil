@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function AdminPanel({ listaLugares, onAgregarLugar, onEliminarLugar }) {
     // Estados para el formulario de carga
@@ -13,64 +13,102 @@ function AdminPanel({ listaLugares, onAgregarLugar, onEliminarLugar }) {
     // Estado para el buscador de eliminación
     const [busquedaAdmin, setBusquedaAdmin] = useState('');
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (!nombre || !direccion) {
-            alert('Por favor completá al menos el nombre y la dirección.');
-            return;
-        }
+    // Estado para controlar la pestaña del panel
+    const [pestaniaActiva, setPestaniaActiva] = useState('gestion');
 
-      const nuevoLugar = {
-            nombre,
-            tipo,
-            subtipo,
-            descripcion,
-            infoAmpliada: descripcion,
-            direccion,
-            horarios,
-            imagen: imagen || 'https://images.unsplash.com/photo-1506744038136-46273834b3fb'
-        };
-        
+    const [estadisticas, setEstadisticas] = useState({
+    total: 0,
+    hoy: 0,
+    semana: 0,
+    mes: 0
+    });
+    const [cargandoEstadisticas, setCargandoEstadisticas] = useState(false);
+    
+    useEffect(() => {
+    if (pestaniaActiva !== 'estadisticas') return;
+
+    const cargarEstadisticas = async () => {
+        setCargandoEstadisticas(true);
+
         try {
-            const respuesta = await fetch('http://localhost/api-turismo-tandil/agregar_lugar.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(nuevoLugar)
-            });
+            const respuesta = await fetch(
+                'http://localhost/api-turismo-tandil/obtener_estadisticas.php'
+            );
 
-            const resultado = await respuesta.json();
-
-            if (resultado.exito) {
-                onAgregarLugar(resultado.lugar); // Agrega a la vista el objeto guardado con ID de MySQL
-                alert('¡Lugar guardado con éxito en la base de datos!');
-                
-                // Limpiar formulario
-                setNombre('');
-                setSubtipo('');
-                setDescripcion('');
-                setDireccion('');
-                setHorarios('');
-                setImagen('');
-            } else {
-                alert('Error al guardar: ' + resultado.error);
+            if (!respuesta.ok) {
+                throw new Error('Error al obtener las estadísticas');
             }
+
+            const datos = await respuesta.json();
+            setEstadisticas(datos);
         } catch (error) {
-            console.error('Error de red:', error);
-            alert('No se pudo conectar con el servidor.');
+            console.error('Error cargando estadísticas:', error);
+        } finally {
+            setCargandoEstadisticas(false);
         }
-
-
-       /* onAgregarLugar(nuevoLugar);
-        alert('¡Lugar agregado con éxito!');
-        
-        // Limpiar formulario
-        setNombre('');
-        setSubtipo('');
-        setDescripcion('');
-        setDireccion('');
-        setHorarios('');
-        setImagen('');*/
     };
+
+    cargarEstadisticas();
+}, [pestaniaActiva]);
+ 
+    async function handleSubmit(e) {
+            e.preventDefault();
+            if (!nombre || !direccion) {
+                alert('Por favor completá al menos el nombre y la dirección.');
+                return;
+            }
+
+            const nuevoLugar = {
+                nombre,
+                tipo,
+                subtipo,
+                descripcion,
+                infoAmpliada: descripcion,
+                direccion,
+                horarios,
+                imagen: imagen || 'https://images.unsplash.com/photo-1506744038136-46273834b3fb'
+            };
+
+            try {
+                const respuesta = await fetch('http://localhost/api-turismo-tandil/agregar_lugar.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(nuevoLugar)
+                });
+
+                const resultado = await respuesta.json();
+
+                if (resultado.exito) {
+                    onAgregarLugar(resultado.lugar); // Agrega a la vista el objeto guardado con ID de MySQL
+                    alert('¡Lugar guardado con éxito en la base de datos!');
+
+                    // Limpiar formulario
+                    setNombre('');
+                    setSubtipo('');
+                    setDescripcion('');
+                    setDireccion('');
+                    setHorarios('');
+                    setImagen('');
+                } else {
+                    alert('Error al guardar: ' + resultado.error);
+                }
+            } catch (error) {
+                console.error('Error de red:', error);
+                alert('No se pudo conectar con el servidor.');
+            }
+
+
+            /* onAgregarLugar(nuevoLugar);
+             alert('¡Lugar agregado con éxito!');
+             
+             // Limpiar formulario
+             setNombre('');
+             setSubtipo('');
+             setDescripcion('');
+             setDireccion('');
+             setHorarios('');
+             setImagen('');*/
+        }
 
     // Filtrar lugares para el panel de borrado
     const lugaresAEliminar = listaLugares.filter(lugar => 
@@ -91,8 +129,44 @@ function AdminPanel({ listaLugares, onAgregarLugar, onEliminarLugar }) {
         <div style={{ maxWidth: '1100px', margin: '120px auto 40px auto', padding: '30px', background: '#fff', borderRadius: '12px', boxShadow: '0 4px 15px rgba(0,0,0,0.08)' }}>
             <h2 style={{ color: '#1a3322', marginBottom: '10px', fontSize: '26px' }}>Panel de Administración Municipal</h2>
             <p style={{ color: '#666', marginBottom: '30px', fontSize: '14px' }}>Gestión de contenidos y previsualización en tiempo real.</p>
+            <div style={{
+              display: 'flex',
+              gap: '10px',
+              marginBottom: '30px',
+              borderBottom: '2px solid #eee',
+              paddingBottom: '10px'
+            }}>
+            <button
+              onClick={() => setPestaniaActiva('gestion')}
+                style={{
+                 padding: '10px 20px',
+                 border: 'none',
+                 borderRadius: '6px',
+                 background: pestaniaActiva === 'gestion' ? '#5d7d65' : '#e8ece9',
+                 color: pestaniaActiva === 'gestion' ? '#fff' : '#444',
+                 fontWeight: 'bold',
+                 cursor: 'pointer'
+                }}>
+                🗂️ Gestión de lugares
+            </button>
 
-            {/* CONTENEDOR PRINCIPAL EN DOS COLUMNAS (Formulario + Preview) */}
+            <button
+              onClick={() => setPestaniaActiva('estadisticas')}
+                style={{
+                 padding: '10px 20px',
+                 border: 'none',
+                 borderRadius: '6px',
+                 background: pestaniaActiva === 'estadisticas' ? '#5d7d65' : '#e8ece9',
+                 color: pestaniaActiva === 'estadisticas' ? '#fff' : '#444',
+                 fontWeight: 'bold',
+                 cursor: 'pointer'
+                }}>
+                📊 Estadísticas
+            </button>
+            </div>
+            {pestaniaActiva === 'gestion' && (
+                <>
+                    {/* CONTENEDOR PRINCIPAL EN DOS COLUMNAS (Formulario + Preview) */}
             <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '40px', marginBottom: '40px', paddingBottom: '30px', borderBottom: '2px solid #eee' }}>
                 
                 {/* SECCIÓN 1: CARGAR NUEVO LUGAR */}
@@ -275,7 +349,23 @@ function AdminPanel({ listaLugares, onAgregarLugar, onEliminarLugar }) {
                     )}
                 </div>
             </div>
-        </div>
+            </>
+    )}
+    {pestaniaActiva === 'estadisticas' && (
+        <div>
+    {cargandoEstadisticas ? (
+        <p>Cargando estadísticas...</p>
+    ) : (
+        <>
+            <p>Total de visitas: <strong>{estadisticas.total}</strong></p>
+            <p>Visitas de hoy: <strong>{estadisticas.hoy}</strong></p>
+            <p>Visitas de esta semana: <strong>{estadisticas.semana}</strong></p>
+            <p>Visitas de este mes: <strong>{estadisticas.mes}</strong></p>
+        </>
+    )}
+</div>
+    )}
+       </div>
     );
 }
 
