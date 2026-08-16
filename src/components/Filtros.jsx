@@ -7,6 +7,7 @@ function Filtros({ categoria, setCategoria, subCategoria, setSubCategoria }) {
                     { label: 'Todas', val: '' },
                     { label: 'Paseos', val: 'Paseo' },
                     { label: 'Gastronomía', val: 'Gastronomía' },
+                    { label: 'Alojamiento', val: 'Alojamiento' },
                     { label: 'Cultura', val: 'Cultura' },
                     { label: 'Aventura', val: 'Aventura' }
                 ].map((cat) => (
@@ -33,17 +34,48 @@ function Filtros({ categoria, setCategoria, subCategoria, setSubCategoria }) {
                 ))}
             </div>
 
-            {/* SUB-FILTROS DE GASTRONOMÍA (Solo aparecen si se selecciona Gastronomía) */}
+            {/* SUB-FILTROS DE GASTRONOMÍA */}
             {categoria.toLowerCase() === 'gastronomía' && (
                 <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginBottom: '40px', flexWrap: 'wrap', padding: '0 20px' }}>
                     {[
                         { label: 'Todos los sabores', val: '' },
+                        { label: '⭐ Recomendados', val: 'Recomendado' },
                         { label: 'Cervecerías', val: 'Cervecería' },
                         { label: 'Picadas y Quesos', val: 'Picadas' },
                         { label: 'Restaurantes', val: 'Restaurante' },
                         { label: 'Cafeterías', val: 'Cafetería' },
                         { label: 'Parrillas', val: 'Parrillas' }
+                    ].map((sub) => (
+                        <span 
+                            key={sub.val}
+                            onClick={() => setSubCategoria(sub.val)}
+                            style={{ 
+                                cursor: 'pointer', 
+                                color: subCategoria === sub.val ? '#fff' : '#4a5b51', 
+                                background: subCategoria === sub.val ? '#3e5444' : '#e6efe9', 
+                                padding: '6px 14px', 
+                                borderRadius: '6px', 
+                                fontWeight: '600', 
+                                fontSize: '13px', 
+                                border: '1px solid #c4d7cd',
+                                transition: 'all 0.2s' 
+                            }}
+                        >
+                            {sub.label}
+                        </span>
+                    ))}
+                </div>
+            )}
 
+            {/* SUB-FILTROS DE ALOJAMIENTO */}
+            {categoria.toLowerCase() === 'alojamiento' && (
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginBottom: '40px', flexWrap: 'wrap', padding: '0 20px' }}>
+                    {[
+                        { label: 'Todos los alojamientos', val: '' },
+                        { label: '⭐ Recomendados', val: 'Recomendado' },
+                        { label: 'Cabañas', val: 'Cabañas' },
+                        { label: 'Hoteles', val: 'Hotel' },
+                        { label: 'Posadas', val: 'Posada' }
                     ].map((sub) => (
                         <span 
                             key={sub.val}

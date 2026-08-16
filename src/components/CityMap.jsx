@@ -13,10 +13,11 @@ const crearIconoColor = (color) => {
     });
 };
 
-// Definición de colores por categoría
 const iconosPorCategoria = {
     'Paseo': crearIconoColor('#2ecc71'),      
     'Gastronomía': crearIconoColor('#8e44ad'), 
+    'Alojamiento': crearIconoColor('#e74c3c'), // Rojo para alojamientos
+    'Atractivo': crearIconoColor('#2980b9'),   // Azul para atractivos
     'Cultura': crearIconoColor('#f1c40f'),    
     'Aventura': crearIconoColor('#e67e22'),   
     'Default': crearIconoColor('#3498db')      
