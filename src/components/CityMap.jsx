@@ -192,7 +192,7 @@ export default function CityMap({ lugares = [], onVerDetalle }) {
                     { label: ' Paseos', val: 'Paseo', color: '#2ecc71' },
                     { label: ' Gastronomía', val: 'Gastronomía', color: '#9b59b6' },
                     { label: ' Alojamiento', val: 'Alojamiento', color: '#e74c3c' },
-                    { label: '🏛 Cultura', val: 'Cultura', color: '#f39c12' },
+                    { label: ' Cultura', val: 'Cultura', color: '#f39c12' },
                     { label: ' Aventura', val: 'Aventura', color: '#e67e22' }
                 ].map((item) => {
                     const activa = filtroCategoria === item.val;

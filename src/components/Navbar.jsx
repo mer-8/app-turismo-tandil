@@ -4,8 +4,7 @@ import WidgetClima from './WidgetClima';
 function Navbar({ 
     vistaActiva, 
     setVistaActiva, 
-    cantidadFavoritos = 0, 
-    onAbrirAsistenteIA 
+    cantidadFavoritos = 0 
 }) {
     const [menuAbierto, setMenuAbierto] = useState(false);
 
@@ -83,7 +82,7 @@ function Navbar({
                 {menuAbierto ? '✕' : '☰'}
             </div>
 
-            {/* Menú de navegación principal */}
+            {/* Menú de navegación principal limpio */}
             <nav className={`nav-menu ${menuAbierto ? 'activo' : ''}`} style={{ 
                 display: 'flex', 
                 gap: '8px', 
@@ -104,20 +103,6 @@ function Navbar({
                     }}
                 >
                     Inicio
-                </span>
-
-                <span 
-                    onClick={() => cambiarVista('alojamiento')} 
-                    style={{ 
-                        cursor: 'pointer', 
-                        background: vistaActiva === 'alojamiento' ? '#5d7d65' : 'transparent', 
-                        color: vistaActiva === 'alojamiento' ? '#fff' : '#1a3322', 
-                        padding: '7px 16px', 
-                        borderRadius: '8px', 
-                        transition: 'all 0.2s' 
-                    }}
-                >
-                    Alojamiento
                 </span>
 
                 <span 
@@ -176,32 +161,6 @@ function Navbar({
                         </span>
                     )}
                 </span>
-
-                {/* Botón Asistente Virtual con IA */}
-                <button
-                    onClick={() => {
-                        if (onAbrirAsistenteIA) onAbrirAsistenteIA();
-                        setMenuAbierto(false);
-                    }}
-                    style={{
-                        background: 'linear-gradient(135deg, #2f533a 0%, #1a3322 100%)',
-                        color: '#adddbd',
-                        border: '1px solid #5d7d65',
-                        borderRadius: '20px',
-                        padding: '7px 14px',
-                        fontWeight: '700',
-                        fontSize: '13px',
-                        cursor: 'pointer',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '6px',
-                        marginLeft: '6px',
-                        boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-                    }}
-                >
-                    <span></span>
-                    <span>Asistente IA</span>
-                </button>
             </nav>
         </header>
     );

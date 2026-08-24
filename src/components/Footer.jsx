@@ -1,6 +1,23 @@
+import { useState } from 'react';
 import logoAetermia from '../assets/logo.png';
 
 function Footer({ onAbrirAdminSecreto, onAbrirModalQR }) {
+    // Control interno de clics para asegurar el doble clic sin depender del evento nativo del navegador
+    const [ultimoClick, setUltimoClick] = useState(0);
+
+    const handleCopyrightClick = () => {
+        const ahora = new Date().getTime();
+        const tiempoTranscurrido = ahora - ultimoClick;
+        
+        // Si el segundo clic se hace en menos de 500 milisegundos, se considera doble clic válido
+        if (tiempoTranscurrido < 500 && tiempoTranscurrido > 0) {
+            if (onAbrirAdminSecreto) onAbrirAdminSecreto();
+            setUltimoClick(0); // Reiniciar
+        } else {
+            setUltimoClick(ahora);
+        }
+    };
+
     return (
         <footer style={{
             width: '100%',
@@ -29,8 +46,6 @@ function Footer({ onAbrirAdminSecreto, onAbrirModalQR }) {
                         Municipio de Tandil • Gobierno Local
                     </p>
                 </div>
-
-
 
                 {/* Columna 3: Herramientas y Acciones */}
                 <div>
@@ -69,8 +84,8 @@ function Footer({ onAbrirAdminSecreto, onAbrirModalQR }) {
                         src={logoAetermia}
                         alt="Logo Aetermia"
                         style={{
-                            height: '55px',
-                            maxWidth: '200px',
+                            height: '75px',
+                            maxWidth: '260px',
                             objectFit: 'contain',
                             filter: 'brightness(1.1)'
                         }}
@@ -78,7 +93,7 @@ function Footer({ onAbrirAdminSecreto, onAbrirModalQR }) {
                 </div>
             </div>
 
-            {/* Barra Inferior con Acceso Secreto */}
+            {/* Barra Inferior con Acceso Secreto Robusto */}
             <div style={{
                 borderTop: '1px solid rgba(255,255,255,0.1)',
                 paddingTop: '20px',
@@ -91,19 +106,20 @@ function Footer({ onAbrirAdminSecreto, onAbrirModalQR }) {
                 gap: '10px'
             }}>
                 <p
-                    onDoubleClick={onAbrirAdminSecreto}
+                    onClick={handleCopyrightClick}
                     style={{
-                        cursor: 'default',
+                        cursor: 'pointer',
                         userSelect: 'none',
                         fontSize: '12px',
                         color: '#7a9683',
-                        margin: 0
+                        margin: 0,
+                        padding: '10px 0',
+                        pointerEvents: 'auto'
                     }}
                     title="Doble clic para acceso de operadores municipales"
                 >
                     © 2026 Tandil Turismo — Todos los derechos reservados.
                 </p>
-
             </div>
         </footer>
     );
