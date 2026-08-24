@@ -1,4 +1,4 @@
-# Aplicación Oficial de Turismo y Servicios de Tandil 🌲🏛️🧀
+# Aplicación Oficial de Turismo y Servicios de Tandil 
 
 > **Expediente Municipal N° 4115-2026-TUR**  
 > **Dirección de Turismo • Municipio de Tandil**
@@ -7,7 +7,7 @@ Plataforma digital institucional desarrollada para centralizar la oferta turíst
 
 ---
 
-## 🚀 Stack Tecnológico
+##  Stack Tecnológico
 
 - **Frontend / UI:** React 19 + Vite (Diseño Responsive PWA).
 - **Geolocalización & Cartografía:** Leaflet & React-Leaflet con filtros de proximidad por GPS.
@@ -17,7 +17,7 @@ Plataforma digital institucional desarrollada para centralizar la oferta turíst
 
 ---
 
-## 🏛️ Taxonomía Oficial de Categorías y Subcategorías
+##  Taxonomía Oficial de Categorías y Subcategorías
 
 1. **Gastronomía:** Cervecerías, Picadas y Quesos, Restaurantes, Cafeterías, Parrillas. (*Filtro especial: Sello de "Nuestros Recomendados"*).
 2. **Alojamiento:** Cabañas, Hoteles, Posadas. (*Filtro especial: Sello de "Nuestros Recomendados"*).
@@ -27,7 +27,7 @@ Plataforma digital institucional desarrollada para centralizar la oferta turíst
 
 ---
 
-## 🔐 Panel de Administración Municipal Secreto
+##  Panel de Administración Municipal Secreto
 
 - **Acceso:** Doble clic en el pie de página institucional (Footer) sobre el texto de derechos reservados.
 - **Clave Institucional:** `admin123`
@@ -35,7 +35,7 @@ Plataforma digital institucional desarrollada para centralizar la oferta turíst
 
 ---
 
-## 💻 Instrucciones de Ejecución
+##  Instrucciones de Ejecución
 
 ```bash
 # Instalar dependencias
