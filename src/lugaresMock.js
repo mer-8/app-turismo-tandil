@@ -22,7 +22,7 @@ export const lugaresMock = [
     { id: 14, nombre: "Palacio Municipal", tipo: "Cultura", subtipo: "Histórico", recomendado: false, descripcion: "Arquitectura imponente y centro administrativo histórico.", coords: [-37.3260, -59.1350] },
     { id: 15, nombre: "Centro Cultural Universitario", tipo: "Cultura", subtipo: "Teatro", recomendado: false, descripcion: "Punto clave de la agenda cultural y académica de la ciudad.", coords: [-37.3280, -59.1320] },
     { id: 16, nombre: "Museo Histórico Fuerte Independencia", tipo: "Cultura", subtipo: "Museo", recomendado: true, descripcion: "Un recorrido por la fundación y el pasado de Tandil.", coords: [-37.3240, -59.1385] },
-
+    //aventura
     { id: 17, nombre: "Cerro Centinela", tipo: "Aventura", subtipo: "Trekking", recomendado: true, descripcion: "Ascenso técnico y vistas increíbles, ideal para los amantes del trekking.", coords: [-37.3520, -59.1610] },
     { id: 18, nombre: "Valle del Picapedrero", tipo: "Aventura", subtipo: "Escalada", recomendado: true, descripcion: "Circuito de escalada en roca y actividades de montaña.", coords: [-37.3480, -59.1050] },
     { id: 19, nombre: "Cerro El Venado", tipo: "Aventura", subtipo: "Trekking", recomendado: false, descripcion: "Sendero de dificultad media para disfrutar del paisaje serrano en altura.", coords: [-37.3550, -59.1720] },
