@@ -1,23 +1,34 @@
 <?php
-    header("Content-Type: application/json; charset=UTF-8");
-    
-    $conexion = require 'conexion.php';
+// Endpoint para eliminar un lugar por ID
+$conexion = require 'conexion.php';
 
-    $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+$json = file_get_contents('php://input');
+$datos = json_decode($json, true);
 
-    if ($id > 0) {
-        try {
-            $sql = "DELETE FROM lugares WHERE id = :id";
-            $stmt = $conexion->prepare($sql);
-            $stmt->execute([':id' => $id]);
+if (!$datos || empty($datos['id'])) {
+    http_response_code(400);
+    echo json_encode([
+        "exito" => false,
+        "error" => "ID de lugar no proporcionado"
+    ]);
+    exit();
+}
 
-            echo json_encode(['exito' => true]);
-        } catch (PDOException $e) {
-            http_response_code(500);
-            echo json_encode(['exito' => false, 'error' => $e->getMessage()]);
-        }
-    } else {
-        http_response_code(400);
-        echo json_encode(['exito' => false, 'error' => 'ID no válido']);
+try {
+    $sql = "DELETE FROM lugares WHERE id = :id";
+    $stmt = $conexion->prepare($sql);
+    $stmt->execute([':id' => (int)$datos['id']]);
+
+    echo json_encode([
+        "exito" => true,
+        "mensaje" => "Lugar eliminado exitosamente"
+    ]);
+
+} catch (PDOException $e) {
+    http_response_code(500);
+    echo json_encode([
+        "exito" => false,
+        "error" => "Error al eliminar: " . $e->getMessage()
+    ]);
 }
 ?>

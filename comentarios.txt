@@ -1,2 +1,5 @@
-Notas para nosotros:
-Vendí todos nuestros datos personales a China
+Notas del Proyecto - Turismo Tandil MVP:
+- MVP completado y alineado con las especificaciones del documento oficial paraia.pdf.
+- Taxonomía completa implementada (Gastronomía, Alojamiento, Paseos, Cultura, Aventura) con todas sus subcategorías oficiales y el sello de "Nuestros Recomendados".
+- Módulos del Roadmap Tecnológico integrados: Asistente IA de Itinerarios, Proximidad GPS en el Mapa, Notificaciones de Alertas Oficiales y Códigos QR para señalética en cerros y paradores.
+- Backend PHP + MySQL configurado con soporte CORS completo y fallback local automático.

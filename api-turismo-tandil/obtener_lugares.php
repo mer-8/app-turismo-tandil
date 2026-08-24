@@ -1,31 +1,39 @@
 <?php
-    header("Content-Type: application/json; charset=UTF-8");
-    
-    $conexion = require 'conexion.php';
+// Endpoint para obtener el catálogo completo de prestadores y puntos turísticos
+$conexion = require 'conexion.php';
 
-    try {
-        $sql = "SELECT * FROM lugares ORDER BY id DESC";
-        $stmt = $conexion->prepare($sql);
-        $stmt->execute();
-        
-        $lugares = $stmt->fetchAll();
+try {
+    $sql = "SELECT id, nombre, tipo, subtipo, descripcion, infoAmpliada, direccion, horarios, latitud, longitud, imagen, recomendado FROM lugares ORDER BY id ASC";
+    $stmt = $conexion->prepare($sql);
+    $stmt->execute();
+    $filas = $stmt->fetchAll();
 
-        // Convertir IDs y coordenadas a tipos numéricos para que React no tenga problemas
-        foreach ($lugares as &$lugar) {
-            $lugar['id'] = (int)$lugar['id'];
-            if ($lugar['latitud'] !== null && $lugar['longitud'] !== null) {
-                $lugar['coords'] = [(float)$lugar['latitud'], (float)$lugar['longitud']];
-            } else {
-                $lugar['coords'] = null;
-            }
-            // Descartamos campos duplicados de la respuesta si es necesario
-            unset($lugar['latitud'], $lugar['longitud']);
+    $lugares = array_map(function($fila) {
+        $coords = null;
+        if (!empty($fila['latitud']) && !empty($fila['longitud'])) {
+            $coords = [(float)$fila['latitud'], (float)$fila['longitud']];
         }
+        return [
+            'id' => (int)$fila['id'],
+            'nombre' => $fila['nombre'],
+            'tipo' => $fila['tipo'],
+            'subtipo' => $fila['subtipo'],
+            'descripcion' => $fila['descripcion'],
+            'infoAmpliada' => $fila['infoAmpliada'],
+            'direccion' => $fila['direccion'],
+            'horarios' => $fila['horarios'],
+            'imagen' => $fila['imagen'],
+            'coords' => $coords,
+            'recomendado' => (bool)$fila['recomendado']
+        ];
+    }, $filas);
 
-        echo json_encode($lugares);
+    echo json_encode($lugares, JSON_UNESCAPED_UNICODE);
 
-    } catch (PDOException $e) {
-        http_response_code(500);
-        echo json_encode(["error" => $e->getMessage()]);
-    }
+} catch (PDOException $e) {
+    http_response_code(500);
+    echo json_encode([
+        "error" => "Error al obtener lugares: " . $e->getMessage()
+    ]);
+}
 ?>
