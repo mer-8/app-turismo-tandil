@@ -5,10 +5,10 @@ function Hero({ busqueda, setBusqueda }) {
         <section style={{
             position: 'relative',
             overflow: 'hidden',
-            padding: '160px 20px 60px 20px',
+            padding: '160px 20px 70px 20px',
             textAlign: 'center',
-            borderBottomLeftRadius: '50% 10px',
-            borderBottomRightRadius: '50% 10px',
+            borderBottomLeftRadius: '50% 40px',
+            borderBottomRightRadius: '50% 40px',
             marginBottom: '30px'
         }}>
             {/* Imagen de fondo con blur */}
@@ -26,29 +26,31 @@ function Hero({ busqueda, setBusqueda }) {
                 zIndex: 0
             }}></div>
 
-            {/* Capa oscura / overlay */}
+            {/* Capa oscura / overlay cálido */}
             <div style={{
                 position: 'absolute',
                 top: 0,
                 left: 0,
                 right: 0,
                 bottom: 0,
-                background: 'rgba(0, 0, 0, 0.35)',
+                background: 'linear-gradient(180deg, rgba(22,40,31,0.55) 0%, rgba(22,40,31,0.35) 55%, rgba(193,102,46,0.4) 100%)',
                 zIndex: 1
             }}></div>
 
             {/* Contenido del hero */}
             <div style={{ position: 'relative', zIndex: 2 }}>
                 <h1 style={{
-                    color: '#adddbd',
-                    fontSize: '42px',
-                    margin: '0 0 10px 0',
-                    fontWeight: '800'
+                    fontFamily: 'var(--display)',
+                    color: '#fff',
+                    fontSize: '46px',
+                    margin: '0 0 12px 0',
+                    fontWeight: '600',
+                    letterSpacing: '-0.5px'
                 }}>
                     Bienvenido a Tandil
                 </h1>
                 <p style={{
-                    color: '#f0f0f0',
+                    color: 'var(--sand-100)',
                     fontSize: '18px',
                     margin: '0 0 40px 0',
                     fontWeight: '400'
@@ -61,13 +63,13 @@ function Hero({ busqueda, setBusqueda }) {
                     maxWidth: '600px',
                     margin: '0 auto',
                     background: '#fff',
-                    borderRadius: '8px',
+                    borderRadius: 'var(--radius-lg)',
                     display: 'flex',
                     alignItems: 'center',
                     padding: '8px 8px 8px 15px',
-                    boxShadow: '0 4px 15px rgba(0,0,0,0.15)'
+                    boxShadow: 'var(--shadow-lg)'
                 }}>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--ink-400)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <circle cx="11" cy="11" r="8"></circle>
                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                     </svg>
@@ -79,9 +81,9 @@ function Hero({ busqueda, setBusqueda }) {
                         style={{ flex: 1, border: 'none', padding: '12px 15px', fontSize: '16px', outline: 'none', background: 'transparent' }}
                     />
                     <button style={{
-                        background: '#5d7d65',
+                        background: 'var(--forest-500)',
                         border: 'none',
-                        borderRadius: '6px',
+                        borderRadius: 'var(--radius-md)',
                         width: '45px',
                         height: '45px',
                         display: 'flex',

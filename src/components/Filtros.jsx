@@ -1,12 +1,12 @@
 // Componente de Filtros y Subcategorías según la Taxonomía Oficial (paraia.pdf)
 
-function Filtros({ 
-    categoria, 
-    setCategoria, 
-    subCategoria, 
-    setSubCategoria, 
-    soloRecomendados, 
-    setSoloRecomendados 
+function Filtros({
+    categoria,
+    setCategoria,
+    subCategoria,
+    setSubCategoria,
+    soloRecomendados,
+    setSoloRecomendados
 }) {
     // Definición de subcategorías por categoría oficial
     const subcategoriasPorCategoria = {
@@ -48,13 +48,13 @@ function Filtros({
                             style={{
                                 border: 'none',
                                 cursor: 'pointer',
-                                color: activa ? '#fff' : '#1a3322',
-                                background: activa ? '#5d7d65' : '#ffffff',
+                                color: activa ? '#fff' : 'var(--ink-900)',
+                                background: activa ? 'var(--forest-500)' : '#ffffff',
                                 padding: '9px 16px',
-                                borderRadius: '24px',
+                                borderRadius: 'var(--radius-pill)',
                                 fontWeight: '700',
                                 fontSize: '13px',
-                                boxShadow: activa ? '0 4px 10px rgba(93,125,101,0.35)' : '0 2px 6px rgba(0,0,0,0.06)',
+                                boxShadow: activa ? 'var(--shadow-md)' : 'var(--shadow-sm)',
                                 transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
                                 transform: activa ? 'scale(1.03)' : 'scale(1)'
                             }}
@@ -75,26 +75,26 @@ function Filtros({
                 background: 'rgba(255, 255, 255, 0.7)',
                 backdropFilter: 'blur(8px)',
                 padding: '10px 14px',
-                borderRadius: '12px',
-                border: '1px solid rgba(220, 216, 205, 0.8)'
+                borderRadius: 'var(--radius-md)',
+                border: '1px solid var(--sand-200)'
             }}>
                 {/* BOTÓN TOGGLE SELLO RECOMENDADOS OFICIALES */}
                 <button
                     onClick={() => setSoloRecomendados(!soloRecomendados)}
                     style={{
-                        border: soloRecomendados ? '1px solid #d99b26' : '1px solid #e1d3b0',
+                        border: soloRecomendados ? '1px solid var(--gold-600)' : '1px solid var(--gold-border)',
                         cursor: 'pointer',
-                        color: soloRecomendados ? '#fff' : '#855d14',
-                        background: soloRecomendados ? '#d99b26' : '#fdf8ec',
+                        color: soloRecomendados ? '#fff' : 'var(--gold-ink)',
+                        background: soloRecomendados ? 'var(--gold-600)' : 'var(--gold-100)',
                         padding: '6px 14px',
-                        borderRadius: '20px',
+                        borderRadius: 'var(--radius-pill)',
                         fontWeight: '700',
                         fontSize: '12px',
                         display: 'flex',
                         alignItems: 'center',
                         gap: '6px',
                         transition: 'all 0.2s',
-                        boxShadow: soloRecomendados ? '0 2px 8px rgba(217, 155, 38, 0.4)' : 'none'
+                        boxShadow: soloRecomendados ? 'var(--shadow-gold)' : 'none'
                     }}
                     title="Curaduría oficial de prestadores recomendados por el Municipio"
                 >
@@ -103,7 +103,7 @@ function Filtros({
 
                 {subcatsActuales.length > 0 && (
                     <>
-                        <span style={{ color: '#ccc', margin: '0 2px' }}>|</span>
+                        <span style={{ color: 'var(--sand-200)', margin: '0 2px' }}>|</span>
 
                         {/* SUB-FILTRO "TODOS" DE LA CATEGORÍA */}
                         <button
@@ -111,10 +111,10 @@ function Filtros({
                             style={{
                                 border: 'none',
                                 cursor: 'pointer',
-                                color: subCategoria === '' ? '#fff' : '#4a5b51',
-                                background: subCategoria === '' ? '#3e5444' : '#e6efe9',
+                                color: subCategoria === '' ? '#fff' : 'var(--forest-700)',
+                                background: subCategoria === '' ? 'var(--forest-700)' : 'var(--forest-100)',
                                 padding: '5px 12px',
-                                borderRadius: '16px',
+                                borderRadius: 'var(--radius-pill)',
                                 fontWeight: '600',
                                 fontSize: '12px',
                                 transition: 'all 0.15s'
@@ -131,12 +131,12 @@ function Filtros({
                                     key={sub}
                                     onClick={() => setSubCategoria(sub)}
                                     style={{
-                                        border: activa ? '1px solid #3e5444' : '1px solid #c4d7cd',
+                                        border: activa ? '1px solid var(--forest-700)' : '1px solid var(--forest-border)',
                                         cursor: 'pointer',
-                                        color: activa ? '#fff' : '#4a5b51',
-                                        background: activa ? '#3e5444' : '#e6efe9',
+                                        color: activa ? '#fff' : 'var(--forest-700)',
+                                        background: activa ? 'var(--forest-700)' : 'var(--forest-100)',
                                         padding: '5px 12px',
-                                        borderRadius: '16px',
+                                        borderRadius: 'var(--radius-pill)',
                                         fontWeight: activa ? '700' : '500',
                                         fontSize: '12px',
                                         transition: 'all 0.15s'

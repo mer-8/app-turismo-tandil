@@ -14,7 +14,7 @@ function ModalDetalle({ lugar, onClose, esFavorito, onToggleFavorito }) {
     };
 
     return (
-        <div 
+        <div
             onClick={onClose}
             style={{
                 position: 'fixed',
@@ -22,7 +22,7 @@ function ModalDetalle({ lugar, onClose, esFavorito, onToggleFavorito }) {
                 left: 0,
                 right: 0,
                 bottom: 0,
-                background: 'rgba(15, 25, 18, 0.65)',
+                background: 'rgba(22, 40, 31, 0.65)',
                 backdropFilter: 'blur(5px)',
                 display: 'flex',
                 justifyContent: 'center',
@@ -31,15 +31,15 @@ function ModalDetalle({ lugar, onClose, esFavorito, onToggleFavorito }) {
                 padding: '20px'
             }}
         >
-            <div 
+            <div
                 onClick={(e) => e.stopPropagation()}
                 style={{
                     background: '#ffffff',
-                    borderRadius: '16px',
+                    borderRadius: 'var(--radius-lg)',
                     maxWidth: '560px',
                     width: '100%',
                     overflow: 'hidden',
-                    boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
+                    boxShadow: 'var(--shadow-lg)',
                     display: 'flex',
                     flexDirection: 'column',
                     maxHeight: '90vh',
@@ -62,7 +62,7 @@ function ModalDetalle({ lugar, onClose, esFavorito, onToggleFavorito }) {
                         left: 0,
                         right: 0,
                         bottom: 0,
-                        background: 'linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.7) 100%)'
+                        background: 'linear-gradient(180deg, rgba(22,40,31,0.4) 0%, rgba(22,40,31,0.1) 50%, rgba(22,40,31,0.7) 100%)'
                     }} />
 
                     {/* Botón cerrar modal */}
@@ -72,7 +72,7 @@ function ModalDetalle({ lugar, onClose, esFavorito, onToggleFavorito }) {
                             position: 'absolute',
                             top: '15px',
                             right: '15px',
-                            background: 'rgba(255, 255, 255, 0.85)',
+                            background: 'rgba(255, 255, 255, 0.9)',
                             border: 'none',
                             borderRadius: '50%',
                             width: '36px',
@@ -83,8 +83,8 @@ function ModalDetalle({ lugar, onClose, esFavorito, onToggleFavorito }) {
                             cursor: 'pointer',
                             fontSize: '16px',
                             fontWeight: 'bold',
-                            color: '#1a3322',
-                            boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+                            color: 'var(--ink-900)',
+                            boxShadow: 'var(--shadow-sm)',
                             zIndex: 3
                         }}
                     >
@@ -95,10 +95,10 @@ function ModalDetalle({ lugar, onClose, esFavorito, onToggleFavorito }) {
                     <div style={{ position: 'absolute', bottom: '15px', left: '20px', right: '20px', zIndex: 2 }}>
                         <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '6px' }}>
                             <span style={{
-                                background: '#5d7d65',
+                                background: 'var(--forest-500)',
                                 color: '#fff',
                                 padding: '4px 10px',
-                                borderRadius: '6px',
+                                borderRadius: 'var(--radius-sm)',
                                 fontSize: '11px',
                                 fontWeight: '700',
                                 textTransform: 'uppercase'
@@ -108,24 +108,25 @@ function ModalDetalle({ lugar, onClose, esFavorito, onToggleFavorito }) {
 
                             {lugar.recomendado && (
                                 <span style={{
-                                    background: '#d99b26',
+                                    background: 'var(--gold-600)',
                                     color: '#fff',
                                     padding: '4px 10px',
-                                    borderRadius: '6px',
+                                    borderRadius: 'var(--radius-sm)',
                                     fontSize: '11px',
                                     fontWeight: '800',
                                     textTransform: 'uppercase'
                                 }}>
-                                    Sello Oficial Recomendado
+                                    ★ Sello Oficial Recomendado
                                 </span>
                             )}
                         </div>
 
                         <h2 style={{
                             margin: 0,
+                            fontFamily: 'var(--display)',
                             color: '#ffffff',
-                            fontSize: '24px',
-                            fontWeight: '800',
+                            fontSize: '25px',
+                            fontWeight: '600',
                             textShadow: '0 2px 4px rgba(0,0,0,0.6)'
                         }}>
                             {lugar.nombre}
@@ -136,7 +137,7 @@ function ModalDetalle({ lugar, onClose, esFavorito, onToggleFavorito }) {
                 {/* Contenido desplazable */}
                 <div style={{ padding: '24px', overflowY: 'auto' }}>
                     <p style={{
-                        color: '#38483f',
+                        color: 'var(--ink-900)',
                         fontSize: '15px',
                         lineHeight: '1.65',
                         marginBottom: '20px',
@@ -147,18 +148,18 @@ function ModalDetalle({ lugar, onClose, esFavorito, onToggleFavorito }) {
 
                     {/* Ficha técnica institucional */}
                     <div style={{
-                        background: '#f4f7f5',
-                        border: '1px solid #dce8e0',
+                        background: 'var(--forest-100)',
+                        border: '1px solid var(--forest-border)',
                         padding: '16px',
-                        borderRadius: '10px',
+                        borderRadius: 'var(--radius-md)',
                         marginBottom: '22px',
                         display: 'flex',
                         flexDirection: 'column',
                         gap: '10px'
                     }}>
                         {lugar.direccion && (
-                            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '14px', color: '#2b3a30' }}>
-                                <span style={{ fontSize: '16px' }}></span>
+                            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '14px', color: 'var(--forest-700)' }}>
+                                <span style={{ fontSize: '16px' }}>📍</span>
                                 <div>
                                     <strong>Dirección:</strong> {lugar.direccion}
                                 </div>
@@ -166,8 +167,8 @@ function ModalDetalle({ lugar, onClose, esFavorito, onToggleFavorito }) {
                         )}
 
                         {lugar.horarios && (
-                            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '14px', color: '#2b3a30' }}>
-                                <span style={{ fontSize: '16px' }}></span>
+                            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '14px', color: 'var(--forest-700)' }}>
+                                <span style={{ fontSize: '16px' }}>🕒</span>
                                 <div>
                                     <strong>Horarios de atención:</strong> {lugar.horarios}
                                 </div>
@@ -175,8 +176,8 @@ function ModalDetalle({ lugar, onClose, esFavorito, onToggleFavorito }) {
                         )}
 
                         {lugar.coords && (
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: '#5d7d65' }}>
-                                <span style={{ fontSize: '16px' }}></span>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: 'var(--forest-500)' }}>
+                                <span style={{ fontSize: '16px' }}>◎</span>
                                 <span>Coordenadas GPS: {lugar.coords[0].toFixed(4)}, {lugar.coords[1].toFixed(4)}</span>
                             </div>
                         )}
@@ -188,10 +189,10 @@ function ModalDetalle({ lugar, onClose, esFavorito, onToggleFavorito }) {
                             onClick={abrirEnGoogleMaps}
                             style={{
                                 flex: '1 1 180px',
-                                background: '#5d7d65',
+                                background: 'var(--forest-500)',
                                 color: '#fff',
                                 border: 'none',
-                                borderRadius: '8px',
+                                borderRadius: 'var(--radius-sm)',
                                 padding: '12px 16px',
                                 fontWeight: '700',
                                 fontSize: '14px',
@@ -202,8 +203,8 @@ function ModalDetalle({ lugar, onClose, esFavorito, onToggleFavorito }) {
                                 gap: '8px',
                                 transition: 'background 0.2s'
                             }}
-                            onMouseEnter={(e) => e.currentTarget.style.background = '#4a6751'}
-                            onMouseLeave={(e) => e.currentTarget.style.background = '#5d7d65'}
+                            onMouseEnter={(e) => e.currentTarget.style.background = 'var(--forest-600)'}
+                            onMouseLeave={(e) => e.currentTarget.style.background = 'var(--forest-500)'}
                         >
                             <span>🗺</span>
                             <span>Cómo llegar (Maps)</span>
@@ -214,10 +215,10 @@ function ModalDetalle({ lugar, onClose, esFavorito, onToggleFavorito }) {
                                 onClick={() => onToggleFavorito(lugar.id)}
                                 style={{
                                     flex: '0 0 auto',
-                                    background: esFavorito ? '#fbeae8' : '#f0f3f1',
-                                    color: esFavorito ? '#c0392b' : '#333',
-                                    border: esFavorito ? '1px solid #f0b0a8' : '1px solid #d0dad4',
-                                    borderRadius: '8px',
+                                    background: esFavorito ? 'var(--danger-bg)' : 'var(--sand-100)',
+                                    color: esFavorito ? 'var(--danger)' : 'var(--ink-900)',
+                                    border: esFavorito ? '1px solid #f0b0a8' : '1px solid var(--sand-200)',
+                                    borderRadius: 'var(--radius-sm)',
                                     padding: '12px 18px',
                                     fontWeight: '700',
                                     fontSize: '14px',

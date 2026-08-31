@@ -196,10 +196,10 @@
     top: 75px;
     left: 0;
     width: 100%;
-    background: #efede6;
+    background: var(--sand-100, #f4ebd9);
     padding: 20px 0;
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.08);
-    border-bottom: 1px solid #ddd;
+    box-shadow: 0 10px 15px rgba(30, 42, 32, 0.1);
+    border-bottom: 1px solid var(--sand-200, #e8dcc0);
     z-index: 99;
   }
 

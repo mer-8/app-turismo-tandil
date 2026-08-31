@@ -5,33 +5,33 @@ function CardLugar({ lugar, onVerDetalle, esFavorito, onToggleFavorito, distanci
     const defaultImg = "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&q=80";
 
     return (
-        <div 
+        <div
             className="card-lugar"
             style={{
                 background: '#ffffff',
-                borderRadius: '12px',
+                borderRadius: 'var(--radius-md)',
                 overflow: 'hidden',
-                boxShadow: '0 4px 14px rgba(0, 0, 0, 0.07)',
+                boxShadow: 'var(--shadow-sm)',
                 display: 'flex',
                 flexDirection: 'column',
                 position: 'relative',
                 transition: 'transform 0.25s ease, box-shadow 0.25s ease',
-                border: '1px solid #e7e5dc'
+                border: '1px solid var(--sand-200)'
             }}
             onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.boxShadow = '0 10px 22px rgba(26, 51, 34, 0.12)';
+                e.currentTarget.style.boxShadow = 'var(--shadow-md)';
             }}
             onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 4px 14px rgba(0, 0, 0, 0.07)';
+                e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
             }}
         >
             {/* Cabecera / Imagen con Badges */}
             <div style={{
                 position: 'relative',
                 height: '175px',
-                background: '#c4d7cd',
+                background: 'var(--forest-100)',
                 backgroundImage: `url(${lugar.imagen || defaultImg})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center'
@@ -43,7 +43,7 @@ function CardLugar({ lugar, onVerDetalle, esFavorito, onToggleFavorito, distanci
                     left: 0,
                     right: 0,
                     bottom: 0,
-                    background: 'linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.4) 100%)'
+                    background: 'linear-gradient(180deg, rgba(22,40,31,0.3) 0%, rgba(22,40,31,0) 40%, rgba(22,40,31,0.45) 100%)'
                 }} />
 
                 {/* Sello de Recomendado Oficial Municipal */}
@@ -52,13 +52,13 @@ function CardLugar({ lugar, onVerDetalle, esFavorito, onToggleFavorito, distanci
                         position: 'absolute',
                         top: '12px',
                         left: '12px',
-                        background: '#d99b26',
+                        background: 'var(--gold-600)',
                         color: '#ffffff',
                         fontSize: '11px',
                         fontWeight: '800',
-                        padding: '4px 8px',
-                        borderRadius: '20px',
-                        boxShadow: '0 2px 6px rgba(0,0,0,0.25)',
+                        padding: '4px 10px',
+                        borderRadius: 'var(--radius-pill)',
+                        boxShadow: 'var(--shadow-gold)',
                         display: 'flex',
                         alignItems: 'center',
                         gap: '4px',
@@ -66,7 +66,7 @@ function CardLugar({ lugar, onVerDetalle, esFavorito, onToggleFavorito, distanci
                         letterSpacing: '0.3px',
                         textTransform: 'uppercase'
                     }}>
-                        <span></span> Recomendado
+                        <span>★</span> Recomendado
                     </span>
                 )}
 
@@ -76,16 +76,16 @@ function CardLugar({ lugar, onVerDetalle, esFavorito, onToggleFavorito, distanci
                         position: 'absolute',
                         bottom: '10px',
                         left: '12px',
-                        background: 'rgba(26, 51, 34, 0.85)',
+                        background: 'rgba(22, 40, 31, 0.85)',
                         color: '#fff',
                         fontSize: '11px',
                         fontWeight: '600',
                         padding: '3px 8px',
-                        borderRadius: '12px',
+                        borderRadius: 'var(--radius-pill)',
                         backdropFilter: 'blur(4px)',
                         zIndex: 2
                     }}>
-                         a {distancia < 1 ? `${Math.round(distancia * 1000)} m` : `${distancia.toFixed(1)} km`}
+                        a {distancia < 1 ? `${Math.round(distancia * 1000)} m` : `${distancia.toFixed(1)} km`}
                     </span>
                 )}
 
@@ -100,7 +100,7 @@ function CardLugar({ lugar, onVerDetalle, esFavorito, onToggleFavorito, distanci
                         position: 'absolute',
                         top: '10px',
                         right: '10px',
-                        background: 'rgba(255, 255, 255, 0.9)',
+                        background: 'rgba(255, 255, 255, 0.92)',
                         border: 'none',
                         borderRadius: '50%',
                         width: '36px',
@@ -109,14 +109,14 @@ function CardLugar({ lugar, onVerDetalle, esFavorito, onToggleFavorito, distanci
                         alignItems: 'center',
                         justifyContent: 'center',
                         cursor: 'pointer',
-                        boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
+                        boxShadow: 'var(--shadow-sm)',
                         transition: 'transform 0.15s, background 0.15s',
                         zIndex: 2
                     }}
                     onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.15)'}
                     onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
                 >
-                    <span style={{ fontSize: '18px', lineHeight: 1 , color: "green"}}>
+                    <span style={{ fontSize: '18px', lineHeight: 1, color: 'var(--terracotta-600)' }}>
                         {esFavorito ? '♥' : '♡'}
                     </span>
                 </button>
@@ -127,15 +127,15 @@ function CardLugar({ lugar, onVerDetalle, esFavorito, onToggleFavorito, distanci
                 <div style={{ marginBottom: '8px' }}>
                     <span style={{
                         display: 'inline-block',
-                        background: '#e6efe9',
-                        color: '#36533f',
+                        background: 'var(--forest-100)',
+                        color: 'var(--forest-700)',
                         padding: '3px 9px',
-                        borderRadius: '6px',
+                        borderRadius: 'var(--radius-sm)',
                         fontSize: '11px',
                         fontWeight: '700',
                         textTransform: 'uppercase',
                         letterSpacing: '0.4px',
-                        border: '1px solid #c9ded0'
+                        border: '1px solid var(--forest-border)'
                     }}>
                         {lugar.tipo} {lugar.subtipo ? `• ${lugar.subtipo}` : ''}
                     </span>
@@ -143,9 +143,10 @@ function CardLugar({ lugar, onVerDetalle, esFavorito, onToggleFavorito, distanci
 
                 <h4 style={{
                     margin: '0 0 8px 0',
-                    fontSize: '18px',
-                    fontWeight: '700',
-                    color: '#1a3322',
+                    fontFamily: 'var(--display)',
+                    fontSize: '19px',
+                    fontWeight: '600',
+                    color: 'var(--ink-900)',
                     lineHeight: '1.3'
                 }}>
                     {lugar.nombre}
@@ -154,7 +155,7 @@ function CardLugar({ lugar, onVerDetalle, esFavorito, onToggleFavorito, distanci
                 <p style={{
                     margin: '0 0 16px 0',
                     fontSize: '13px',
-                    color: '#55655c',
+                    color: 'var(--ink-600)',
                     lineHeight: '1.45',
                     flex: 1,
                     display: '-webkit-box',
@@ -166,7 +167,7 @@ function CardLugar({ lugar, onVerDetalle, esFavorito, onToggleFavorito, distanci
                 </p>
 
                 {lugar.direccion && (
-                    <div style={{ fontSize: '12px', color: '#7a8b80', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    <div style={{ fontSize: '12px', color: 'var(--ink-400)', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '4px' }}>
                         <span style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>{lugar.direccion}</span>
                     </div>
                 )}
@@ -175,10 +176,10 @@ function CardLugar({ lugar, onVerDetalle, esFavorito, onToggleFavorito, distanci
                 <button
                     onClick={() => onVerDetalle(lugar)}
                     style={{
-                        background: '#5d7d65',
+                        background: 'var(--forest-500)',
                         color: '#ffffff',
                         border: 'none',
-                        borderRadius: '8px',
+                        borderRadius: 'var(--radius-sm)',
                         padding: '11px 14px',
                         fontWeight: '700',
                         fontSize: '13px',
@@ -188,10 +189,10 @@ function CardLugar({ lugar, onVerDetalle, esFavorito, onToggleFavorito, distanci
                         justifyContent: 'center',
                         gap: '6px',
                         transition: 'background 0.2s, transform 0.1s',
-                        boxShadow: '0 2px 6px rgba(93, 125, 101, 0.2)'
+                        boxShadow: 'var(--shadow-sm)'
                     }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#4a6751'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = '#5d7d65'}
+                    onMouseEnter={(e) => e.currentTarget.style.background = 'var(--forest-600)'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'var(--forest-500)'}
                 >
                     <span>Ver más detalles</span>
                     <span>→</span>

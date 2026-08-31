@@ -20,9 +20,9 @@ export default function WidgetClima() {
     }, []);
 
     return (
-        <div style={{ 
-            fontSize: '14px', 
-            color: '#5d7d65', 
+        <div style={{
+            fontSize: '14px',
+            color: 'var(--forest-500)',
             fontWeight: 'bold', 
             marginRight: '10px',
             display: 'flex',

@@ -21,13 +21,13 @@ function Footer({ onAbrirAdminSecreto, onAbrirModalQR }) {
     return (
         <footer style={{
             width: '100%',
-            background: '#1a3322',
-            color: '#c5d8cb',
+            background: 'var(--forest-900)',
+            color: 'var(--forest-100)',
             padding: '40px 30px 25px 30px',
             fontSize: '13px',
             boxSizing: 'border-box',
             marginTop: 'auto',
-            borderTop: '4px solid #5d7d65'
+            borderTop: '4px solid var(--terracotta-600)'
         }}>
             <div style={{
                 maxWidth: '1100px',
@@ -39,10 +39,10 @@ function Footer({ onAbrirAdminSecreto, onAbrirModalQR }) {
             }}>
                 {/* Columna 1: Identidad Institucional */}
                 <div>
-                    <h3 style={{ color: '#ffffff', fontSize: '18px', fontWeight: '800', margin: '0 0 10px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <h3 style={{ color: '#ffffff', fontFamily: 'var(--display)', fontSize: '19px', fontWeight: '600', margin: '0 0 10px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <span>Dirección de Turismo</span>
                     </h3>
-                    <p style={{ fontSize: '13px', color: '#adddbd', margin: '0 0 8px 0', fontWeight: '600' }}>
+                    <p style={{ fontSize: '13px', color: 'var(--forest-400)', margin: '0 0 8px 0', fontWeight: '600' }}>
                         Municipio de Tandil • Gobierno Local
                     </p>
                 </div>
@@ -56,10 +56,10 @@ function Footer({ onAbrirAdminSecreto, onAbrirModalQR }) {
                         <button
                             onClick={onAbrirModalQR}
                             style={{
-                                background: '#2d4b37',
-                                color: '#adddbd',
-                                border: '1px solid #4a6751',
-                                borderRadius: '6px',
+                                background: 'var(--forest-800)',
+                                color: 'var(--forest-100)',
+                                border: '1px solid var(--forest-600)',
+                                borderRadius: 'var(--radius-sm)',
                                 padding: '6px 12px',
                                 fontSize: '12px',
                                 fontWeight: '700',
@@ -77,7 +77,7 @@ function Footer({ onAbrirAdminSecreto, onAbrirModalQR }) {
 
                 {/* Columna 4: Desarrollado por */}
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center' }}>
-                    <span style={{ fontSize: '11px', color: '#7a9683', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                    <span style={{ fontSize: '11px', color: 'var(--forest-400)', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                         Desarrollado y Gestionado por
                     </span>
                     <img
@@ -95,7 +95,7 @@ function Footer({ onAbrirAdminSecreto, onAbrirModalQR }) {
 
             {/* Barra Inferior con Acceso Secreto Robusto */}
             <div style={{
-                borderTop: '1px solid rgba(255,255,255,0.1)',
+                borderTop: '1px solid rgba(255,255,255,0.12)',
                 paddingTop: '20px',
                 maxWidth: '1100px',
                 margin: '0 auto',
@@ -111,7 +111,7 @@ function Footer({ onAbrirAdminSecreto, onAbrirModalQR }) {
                         cursor: 'pointer',
                         userSelect: 'none',
                         fontSize: '12px',
-                        color: '#7a9683',
+                        color: 'var(--forest-400)',
                         margin: 0,
                         padding: '10px 0',
                         pointerEvents: 'auto'
