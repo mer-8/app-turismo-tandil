@@ -84,6 +84,8 @@ html, body {
   width: 100%;
   height: 100%;
   background-color: var(--sand-50);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='60' viewBox='0 0 120 60'%3E%3Cpath d='M0 48 L15 30 L30 48 L45 22 L60 48 L75 34 L90 48 L105 26 L120 48' fill='none' stroke='%234c7156' stroke-opacity='0.055' stroke-width='1.4'/%3E%3C/svg%3E");
+  background-repeat: repeat;
 
   font-family: var(--sans);
 }

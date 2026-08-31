@@ -1,8 +1,10 @@
 // Tarjeta de Presentación de Prestadores y Puntos de Interés
 // Con efectos de elevación, sello de recomendación municipal y gestión de favoritos
+import { getCategoria } from '../data/categoryTheme';
 
 function CardLugar({ lugar, onVerDetalle, esFavorito, onToggleFavorito, distancia }) {
     const defaultImg = "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&q=80";
+    const cat = getCategoria(lugar.tipo);
 
     return (
         <div
@@ -16,7 +18,8 @@ function CardLugar({ lugar, onVerDetalle, esFavorito, onToggleFavorito, distanci
                 flexDirection: 'column',
                 position: 'relative',
                 transition: 'transform 0.25s ease, box-shadow 0.25s ease',
-                border: '1px solid var(--sand-200)'
+                border: '1px solid var(--sand-200)',
+                borderTop: `4px solid ${cat.color}`
             }}
             onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-4px)';
@@ -126,17 +129,20 @@ function CardLugar({ lugar, onVerDetalle, esFavorito, onToggleFavorito, distanci
             <div style={{ padding: '18px', display: 'flex', flexDirection: 'column', flex: 1 }}>
                 <div style={{ marginBottom: '8px' }}>
                     <span style={{
-                        display: 'inline-block',
-                        background: 'var(--forest-100)',
-                        color: 'var(--forest-700)',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '5px',
+                        background: cat.bg,
+                        color: cat.color,
                         padding: '3px 9px',
                         borderRadius: 'var(--radius-sm)',
                         fontSize: '11px',
                         fontWeight: '700',
                         textTransform: 'uppercase',
                         letterSpacing: '0.4px',
-                        border: '1px solid var(--forest-border)'
+                        border: `1px solid ${cat.color}33`
                     }}>
+                        <span style={{ fontSize: '12px' }}>{cat.icon}</span>
                         {lugar.tipo} {lugar.subtipo ? `• ${lugar.subtipo}` : ''}
                     </span>
                 </div>

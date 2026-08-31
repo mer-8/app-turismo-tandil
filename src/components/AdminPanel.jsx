@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Logo from './Logo';
+import { getCategoria } from '../data/categoryTheme';
 
 function AdminPanel({
     listaLugares,
@@ -172,6 +173,7 @@ function AdminPanel({
     );
 
     const imagenPreview = imagen || 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&q=80';
+    const catPreview = getCategoria(tipo);
 
     return (
         <div style={{ maxWidth: '1100px', margin: '90px auto 40px auto', padding: '30px', background: '#ffffff', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-md)', border: '1px solid var(--sand-200)' }}>
@@ -490,8 +492,8 @@ function AdminPanel({
                                         )}
                                     </div>
                                     <div style={{ padding: '16px' }}>
-                                        <span style={{ fontSize: '11px', fontWeight: '800', background: 'var(--forest-100)', color: 'var(--forest-700)', padding: '3px 8px', borderRadius: '4px', textTransform: 'uppercase' }}>
-                                            {tipo} {subtipo ? `• ${subtipo}` : ''}
+                                        <span style={{ fontSize: '11px', fontWeight: '800', background: catPreview.bg, color: catPreview.color, padding: '3px 8px', borderRadius: '4px', textTransform: 'uppercase' }}>
+                                            {catPreview.icon} {tipo} {subtipo ? `• ${subtipo}` : ''}
                                         </span>
                                         <h4 style={{ fontFamily: 'var(--display)', fontSize: '18px', color: 'var(--ink-900)', margin: '8px 0 6px 0', fontWeight: '600' }}>
                                             {nombre || 'Nombre del Establecimiento...'}
@@ -526,12 +528,14 @@ function AdminPanel({
 
                         <div style={{ maxHeight: '300px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                             {lugaresAEliminar.length > 0 ? (
-                                lugaresAEliminar.map((lugar) => (
-                                    <div key={lugar.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 16px', background: 'var(--sand-50)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--sand-200)' }}>
+                                lugaresAEliminar.map((lugar) => {
+                                    const catLugar = getCategoria(lugar.tipo);
+                                    return (
+                                    <div key={lugar.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 16px', background: 'var(--sand-50)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--sand-200)', borderLeft: `4px solid ${catLugar.color}` }}>
                                         <div>
                                             <strong style={{ color: 'var(--ink-900)' }}>{lugar.nombre}</strong>
-                                            <span style={{ fontSize: '12px', color: 'var(--ink-600)', marginLeft: '10px', background: 'var(--forest-100)', padding: '2px 8px', borderRadius: '4px' }}>
-                                                {lugar.tipo} {lugar.subtipo ? `(${lugar.subtipo})` : ''}
+                                            <span style={{ fontSize: '12px', color: catLugar.color, marginLeft: '10px', background: catLugar.bg, padding: '2px 8px', borderRadius: '4px' }}>
+                                                {catLugar.icon} {lugar.tipo} {lugar.subtipo ? `(${lugar.subtipo})` : ''}
                                             </span>
                                             {lugar.recomendado && (
                                                 <span style={{ marginLeft: '6px', fontSize: '12px' }}>⭐</span>
@@ -544,7 +548,8 @@ function AdminPanel({
                                             Dar de baja
                                         </button>
                                     </div>
-                                ))
+                                    );
+                                })
                             ) : (
                                 <p style={{ color: 'var(--ink-400)', textAlign: 'center', padding: '15px' }}>No se encontraron registros con esa búsqueda.</p>
                             )}

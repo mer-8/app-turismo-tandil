@@ -1,9 +1,11 @@
 // Modal de Detalle Completo de Prestadores y Puntos de Interés
+import { getCategoria } from '../data/categoryTheme';
 
 function ModalDetalle({ lugar, onClose, esFavorito, onToggleFavorito }) {
     if (!lugar) return null;
 
     const defaultImg = "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&q=80";
+    const cat = getCategoria(lugar.tipo);
 
     const abrirEnGoogleMaps = () => {
         if (lugar.coords && lugar.coords.length === 2) {
@@ -95,7 +97,7 @@ function ModalDetalle({ lugar, onClose, esFavorito, onToggleFavorito }) {
                     <div style={{ position: 'absolute', bottom: '15px', left: '20px', right: '20px', zIndex: 2 }}>
                         <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '6px' }}>
                             <span style={{
-                                background: 'var(--forest-500)',
+                                background: cat.color,
                                 color: '#fff',
                                 padding: '4px 10px',
                                 borderRadius: 'var(--radius-sm)',
@@ -103,7 +105,7 @@ function ModalDetalle({ lugar, onClose, esFavorito, onToggleFavorito }) {
                                 fontWeight: '700',
                                 textTransform: 'uppercase'
                             }}>
-                                {lugar.tipo} {lugar.subtipo ? `• ${lugar.subtipo}` : ''}
+                                {cat.icon} {lugar.tipo} {lugar.subtipo ? `• ${lugar.subtipo}` : ''}
                             </span>
 
                             {lugar.recomendado && (

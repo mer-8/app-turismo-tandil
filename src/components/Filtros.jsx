@@ -1,4 +1,5 @@
 // Componente de Filtros y Subcategorías según la Taxonomía Oficial (paraia.pdf)
+import { getCategoria } from '../data/categoryTheme';
 
 function Filtros({
     categoria,
@@ -30,7 +31,7 @@ function Filtros({
                 flexWrap: 'wrap'
             }}>
                 {[
-                    { label: 'Todos', val: '' },
+                    { label: 'Todos', val: '', icon: '✦' },
                     { label: 'Paseos y Atractivos', val: 'Paseo' },
                     { label: 'Gastronomía', val: 'Gastronomía' },
                     { label: 'Alojamiento', val: 'Alojamiento' },
@@ -38,6 +39,7 @@ function Filtros({
                     { label: 'Aventura', val: 'Aventura' }
                 ].map((cat) => {
                     const activa = categoria === cat.val;
+                    const icon = cat.icon || getCategoria(cat.val).icon;
                     return (
                         <button
                             key={cat.val}
@@ -54,12 +56,16 @@ function Filtros({
                                 borderRadius: 'var(--radius-pill)',
                                 fontWeight: '700',
                                 fontSize: '13px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '6px',
                                 boxShadow: activa ? 'var(--shadow-md)' : 'var(--shadow-sm)',
                                 transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
                                 transform: activa ? 'scale(1.03)' : 'scale(1)'
                             }}
                         >
-                            {cat.label}
+                            <span>{icon}</span>
+                            <span>{cat.label}</span>
                         </button>
                     );
                 })}

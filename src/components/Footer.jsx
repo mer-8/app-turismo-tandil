@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import logoAetermia from '../assets/logo.png';
+import Logo from './Logo';
 
 function Footer({ onAbrirAdminSecreto, onAbrirModalQR }) {
     // Control interno de clics para asegurar el doble clic sin depender del evento nativo del navegador
@@ -19,15 +20,27 @@ function Footer({ onAbrirAdminSecreto, onAbrirModalQR }) {
     };
 
     return (
+        <div style={{ marginTop: 'auto' }}>
+            {/* Silueta serrana como transición hacia el pie institucional */}
+            <svg
+                viewBox="0 0 1440 60"
+                preserveAspectRatio="none"
+                style={{ display: 'block', width: '100%', height: '38px', marginBottom: '-1px' }}
+            >
+                <path
+                    d="M0 60 L0 34 L120 50 L240 20 L360 46 L480 12 L600 40 L720 18 L840 44 L960 14 L1080 42 L1200 22 L1320 48 L1440 20 L1440 60 Z"
+                    fill="var(--forest-900)"
+                    stroke="var(--terracotta-600)"
+                    strokeWidth="2.5"
+                />
+            </svg>
         <footer style={{
             width: '100%',
             background: 'var(--forest-900)',
             color: 'var(--forest-100)',
-            padding: '40px 30px 25px 30px',
+            padding: '30px 30px 25px 30px',
             fontSize: '13px',
-            boxSizing: 'border-box',
-            marginTop: 'auto',
-            borderTop: '4px solid var(--terracotta-600)'
+            boxSizing: 'border-box'
         }}>
             <div style={{
                 maxWidth: '1100px',
@@ -40,6 +53,7 @@ function Footer({ onAbrirAdminSecreto, onAbrirModalQR }) {
                 {/* Columna 1: Identidad Institucional */}
                 <div>
                     <h3 style={{ color: '#ffffff', fontFamily: 'var(--display)', fontSize: '19px', fontWeight: '600', margin: '0 0 10px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <Logo size={26} showText={false} />
                         <span>Dirección de Turismo</span>
                     </h3>
                     <p style={{ fontSize: '13px', color: 'var(--forest-400)', margin: '0 0 8px 0', fontWeight: '600' }}>
@@ -122,6 +136,7 @@ function Footer({ onAbrirAdminSecreto, onAbrirModalQR }) {
                 </p>
             </div>
         </footer>
+        </div>
     );
 }
 

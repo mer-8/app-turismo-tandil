@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import { CATEGORIAS, CATEGORIA_DEFAULT } from '../data/categoryTheme';
 
 // Función para calcular distancia euclídea/haversine en km
 function calcularDistanciaKm(lat1, lon1, lat2, lon2) {
@@ -60,12 +61,12 @@ const iconoUsuario = new L.DivIcon({
 });
 
 const coloresCategoria = {
-    'Paseo': '#4c7156',
-    'Gastronomía': '#c1662e',
-    'Alojamiento': '#9c3b28',
-    'Cultura': '#c98a1f',
-    'Aventura': '#8a6a3f',
-    'Default': '#52645a'
+    'Paseo': CATEGORIAS.Paseo.color,
+    'Gastronomía': CATEGORIAS['Gastronomía'].color,
+    'Alojamiento': CATEGORIAS.Alojamiento.color,
+    'Cultura': CATEGORIAS.Cultura.color,
+    'Aventura': CATEGORIAS.Aventura.color,
+    'Default': CATEGORIA_DEFAULT.color
 };
 
 const iconosPorCategoria = {
@@ -260,6 +261,7 @@ export default function CityMap({ lugares = [], onVerDetalle }) {
                     {lugaresFiltrados.map((lugar) => {
                         if (!lugar.coords || lugar.coords.length !== 2) return null;
                         const icon = iconosPorCategoria[lugar.tipo] || iconosPorCategoria['Default'];
+                        const catColor = coloresCategoria[lugar.tipo] || coloresCategoria.Default;
 
                         return (
                             <Marker
@@ -280,7 +282,7 @@ export default function CityMap({ lugares = [], onVerDetalle }) {
                                             {lugar.nombre}
                                         </h4>
                                         <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap', marginBottom: '6px' }}>
-                                            <span style={{ fontSize: '10px', fontWeight: '700', background: 'var(--forest-100)', color: 'var(--forest-700)', padding: '2px 6px', borderRadius: '4px' }}>
+                                            <span style={{ fontSize: '10px', fontWeight: '700', background: `${catColor}22`, color: catColor, padding: '2px 6px', borderRadius: '4px' }}>
                                                 {lugar.tipo}
                                             </span>
                                             {lugar.recomendado && (
