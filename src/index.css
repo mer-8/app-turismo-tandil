@@ -1,25 +1,71 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap');
 
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  /* Verde sierra — base institucional */
+  --forest-900: #16281f;
+  --forest-800: #1e3629;
+  --forest-700: #274435;
+  --forest-600: #345844;
+  --forest-500: #4c7156;
+  --forest-400: #6b9273;
+  --forest-100: #e3ede1;
+  --forest-border: #c9dcc7;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  /* Terracota — calidez turística / sierras al atardecer */
+  --terracotta-600: #c1662e;
+  --terracotta-500: #d6803f;
+  --terracotta-100: #f6e3d3;
+
+  /* Dorado — sello oficial de recomendados */
+  --gold-600: #c98a1f;
+  --gold-ink: #7a5417;
+  --gold-100: #fbf1dd;
+  --gold-border: #ebd9a8;
+
+  /* Arena — fondos cálidos */
+  --sand-50: #fbf7ee;
+  --sand-100: #f4ebd9;
+  --sand-200: #e8dcc0;
+
+  /* Texto */
+  --ink-900: #1e2a20;
+  --ink-600: #52645a;
+  --ink-400: #7c8c81;
+
+  /* Estado */
+  --danger: #c0392b;
+  --danger-bg: #fbeae8;
+  --info: #2563eb;
+
+  --text: var(--ink-600);
+  --text-h: var(--ink-900);
+  --bg: #fff;
+  --border: var(--sand-200);
+  --code-bg: var(--sand-100);
+  --accent: var(--forest-500);
+  --accent-bg: var(--forest-100);
+  --accent-border: var(--forest-border);
+  --social-bg: rgba(244, 235, 217, 0.5);
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+
+  --shadow-sm: 0 2px 8px rgba(30, 42, 32, 0.08);
+  --shadow-md: 0 8px 24px rgba(30, 42, 32, 0.12);
+  --shadow-lg: 0 20px 45px rgba(20, 30, 22, 0.28);
+  --shadow-gold: 0 4px 14px rgba(201, 138, 31, 0.35);
+  --shadow: var(--shadow-md);
+
+  --sans: 'Plus Jakarta Sans', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --display: 'Fraunces', Georgia, serif;
+  --heading: var(--display);
   --mono: ui-monospace, Consolas, monospace;
 
   font: 18px/145% var(--sans);
   letter-spacing: 0.18px;
-  color-scheme: light dark;
+  color-scheme: light;
   color: var(--text);
   background: var(--bg);
   font-synthesis: none;
@@ -32,34 +78,16 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
-
 html, body {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
-  background-color: #fafcfa;
+  background-color: var(--sand-50);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='60' viewBox='0 0 120 60'%3E%3Cpath d='M0 48 L15 30 L30 48 L45 22 L60 48 L75 34 L90 48 L105 26 L120 48' fill='none' stroke='%234c7156' stroke-opacity='0.055' stroke-width='1.4'/%3E%3C/svg%3E");
+  background-repeat: repeat;
 
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--sans);
 }
 
 button, input, select, textarea {
@@ -76,7 +104,8 @@ button, input, select, textarea {
 
 h1,
 h2 {
-  font-weight: 500;
+  font-weight: 600;
+  font-family: var(--display);
   color: var(--text-h);
 }
 
@@ -116,6 +145,11 @@ code {
   background: var(--code-bg);
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .leaflet-control-attribution {
   font-size: 0px !important;
   background: rgba(255, 255, 255, 0.6) !important;
@@ -125,4 +159,3 @@ code {
   text-overflow: ellipsis;
   padding: 2px 5px !important;
 }
-

@@ -119,7 +119,7 @@ function AsistenteIA({ lugares = [], onVerDetalle, onClose }) {
     };
 
     return (
-        <div 
+        <div
             onClick={onClose}
             style={{
                 position: 'fixed',
@@ -127,7 +127,7 @@ function AsistenteIA({ lugares = [], onVerDetalle, onClose }) {
                 left: 0,
                 right: 0,
                 bottom: 0,
-                background: 'rgba(15, 25, 18, 0.7)',
+                background: 'rgba(22, 40, 31, 0.7)',
                 backdropFilter: 'blur(5px)',
                 display: 'flex',
                 justifyContent: 'center',
@@ -136,24 +136,24 @@ function AsistenteIA({ lugares = [], onVerDetalle, onClose }) {
                 padding: '15px'
             }}
         >
-            <div 
+            <div
                 onClick={(e) => e.stopPropagation()}
                 style={{
                     background: '#ffffff',
-                    borderRadius: '16px',
+                    borderRadius: 'var(--radius-lg)',
                     maxWidth: '750px',
                     width: '100%',
                     maxHeight: '92vh',
                     display: 'flex',
                     flexDirection: 'column',
                     overflow: 'hidden',
-                    boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
+                    boxShadow: 'var(--shadow-lg)',
                     animation: 'fadeIn 0.2s ease-out'
                 }}
             >
                 {/* Cabecera del Asistente */}
                 <div style={{
-                    background: 'linear-gradient(135deg, #1a3322 0%, #3e5444 100%)',
+                    background: 'linear-gradient(135deg, var(--forest-900) 0%, var(--forest-600) 100%)',
                     padding: '20px 25px',
                     color: '#fff',
                     display: 'flex',
@@ -162,7 +162,7 @@ function AsistenteIA({ lugares = [], onVerDetalle, onClose }) {
                 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                         <div style={{
-                            background: '#5d7d65',
+                            background: 'var(--terracotta-600)',
                             width: '42px',
                             height: '42px',
                             borderRadius: '50%',
@@ -172,13 +172,13 @@ function AsistenteIA({ lugares = [], onVerDetalle, onClose }) {
                             fontSize: '22px',
                             boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
                         }}>
-
+                            ✦
                         </div>
                         <div>
-                            <h3 style={{ margin: 0, fontSize: '19px', fontWeight: '800' }}>
+                            <h3 style={{ margin: 0, fontFamily: 'var(--display)', fontSize: '20px', fontWeight: '600' }}>
                                 Asistente Virtual Inteligente (IA)
                             </h3>
-                            <span style={{ fontSize: '12px', color: '#adddbd', fontWeight: '500' }}>
+                            <span style={{ fontSize: '12px', color: 'var(--forest-100)', fontWeight: '500' }}>
                                 Planificador de Itinerarios y Asesor Turístico de Tandil
                             </span>
                         </div>
@@ -208,25 +208,25 @@ function AsistenteIA({ lugares = [], onVerDetalle, onClose }) {
                 <div style={{ padding: '20px 25px', overflowY: 'auto', flex: 1 }}>
                     {/* Generador de Itinerario */}
                     <div style={{
-                        background: '#f9f9f6',
-                        border: '1px solid #e2ded2',
-                        borderRadius: '12px',
+                        background: 'var(--sand-100)',
+                        border: '1px solid var(--sand-200)',
+                        borderRadius: 'var(--radius-md)',
                         padding: '18px',
                         marginBottom: '20px'
                     }}>
-                        <h4 style={{ margin: '0 0 12px 0', color: '#1a3322', fontSize: '15px', fontWeight: '700' }}>
-                             Generador Automático de Itinerario
+                        <h4 style={{ margin: '0 0 12px 0', color: 'var(--ink-900)', fontSize: '15px', fontWeight: '700' }}>
+                            Generador Automático de Itinerario
                         </h4>
 
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px', marginBottom: '15px' }}>
                             <div>
-                                <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: '#555', marginBottom: '5px' }}>
-                                     Estadía en Tandil:
+                                <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--ink-600)', marginBottom: '5px' }}>
+                                    Estadía en Tandil:
                                 </label>
-                                <select 
-                                    value={dias} 
+                                <select
+                                    value={dias}
                                     onChange={(e) => setDias(Number(e.target.value))}
-                                    style={{ width: '100%',color: "black", padding: '8px 10px', borderRadius: '6px', border: '1px solid #ccc', background: '#fff', fontSize: '13px' }}
+                                    style={{ width: '100%', color: 'var(--ink-900)', padding: '8px 10px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--sand-200)', background: '#fff', fontSize: '13px' }}
                                 >
                                     <option value={1}>1 Día (Express)</option>
                                     <option value={2}>2 Días (Fin de semana)</option>
@@ -235,13 +235,13 @@ function AsistenteIA({ lugares = [], onVerDetalle, onClose }) {
                             </div>
 
                             <div>
-                                <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: '#555', marginBottom: '5px' }}>
-                                     Tu estilo de viaje:
+                                <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--ink-600)', marginBottom: '5px' }}>
+                                    Tu estilo de viaje:
                                 </label>
-                                <select 
-                                    value={perfil} 
+                                <select
+                                    value={perfil}
                                     onChange={(e) => setPerfil(e.target.value)}
-                                    style={{ width: '100%', color: "black",  padding: '8px 10px', borderRadius: '6px', border: '1px solid #ccc', background: '#fff', fontSize: '13px' }}
+                                    style={{ width: '100%', color: 'var(--ink-900)', padding: '8px 10px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--sand-200)', background: '#fff', fontSize: '13px' }}
                                 >
                                     <option value="gastronomico"> Gastronomía & Picadas</option>
                                     <option value="aventura"> Trekking & Aventura</option>
@@ -255,10 +255,10 @@ function AsistenteIA({ lugares = [], onVerDetalle, onClose }) {
                             onClick={generarItinerario}
                             style={{
                                 width: '100%',
-                                background: '#5d7d65',
+                                background: 'var(--forest-500)',
                                 color: '#fff',
                                 border: 'none',
-                                borderRadius: '8px',
+                                borderRadius: 'var(--radius-sm)',
                                 padding: '10px 16px',
                                 fontWeight: '700',
                                 fontSize: '14px',
@@ -267,7 +267,7 @@ function AsistenteIA({ lugares = [], onVerDetalle, onClose }) {
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 gap: '6px',
-                                boxShadow: '0 2px 8px rgba(93,125,101,0.3)'
+                                boxShadow: 'var(--shadow-sm)'
                             }}
                         >
                             <span>Generar Itinerario con IA</span>
@@ -277,33 +277,33 @@ function AsistenteIA({ lugares = [], onVerDetalle, onClose }) {
                     {/* Itinerario Generado */}
                     {itinerarioGenerado && (
                         <div style={{ marginBottom: '25px', animation: 'fadeIn 0.25s' }}>
-                            <h4 style={{ color: '#1a3322', margin: '0 0 15px 0', fontSize: '17px', fontWeight: '800', borderBottom: '2px solid #5d7d65', paddingBottom: '6px' }}>
-                                 Tu Itinerario Recomendado ({dias} {dias === 1 ? 'día' : 'días'})
+                            <h4 style={{ fontFamily: 'var(--display)', color: 'var(--ink-900)', margin: '0 0 15px 0', fontSize: '18px', fontWeight: '600', borderBottom: '2px solid var(--forest-500)', paddingBottom: '6px' }}>
+                                Tu Itinerario Recomendado ({dias} {dias === 1 ? 'día' : 'días'})
                             </h4>
 
                             {itinerarioGenerado.map((diaPlan) => (
-                                <div key={diaPlan.dia} style={{ marginBottom: '18px', background: '#f4f7f5', borderRadius: '10px', padding: '15px', border: '1px solid #dbe6df' }}>
-                                    <div style={{ fontWeight: '800', color: '#1a3322', fontSize: '14px', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '0.4px' }}>
+                                <div key={diaPlan.dia} style={{ marginBottom: '18px', background: 'var(--forest-100)', borderRadius: 'var(--radius-md)', padding: '15px', border: '1px solid var(--forest-border)' }}>
+                                    <div style={{ fontWeight: '800', color: 'var(--forest-700)', fontSize: '14px', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '0.4px' }}>
                                         🗓 Día {diaPlan.dia}
                                     </div>
 
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                                         {diaPlan.actividades.map((act, idx) => (
-                                            <div key={idx} style={{ background: '#fff', borderRadius: '8px', padding: '10px 14px', border: '1px solid #e7ebe8', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
+                                            <div key={idx} style={{ background: '#fff', borderRadius: 'var(--radius-sm)', padding: '10px 14px', border: '1px solid var(--sand-200)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
                                                 <div style={{ flex: 1, minWidth: '220px' }}>
-                                                    <span style={{ fontSize: '11px', fontWeight: '800', color: '#5d7d65', marginRight: '6px' }}>
+                                                    <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--forest-500)', marginRight: '6px' }}>
                                                         {act.hora}
                                                     </span>
-                                                    <strong style={{ fontSize: '13px', color: '#1a3322' }}>
+                                                    <strong style={{ fontSize: '13px', color: 'var(--ink-900)' }}>
                                                         {act.actividad}
                                                     </strong>
                                                     {act.lugar && (
-                                                        <div style={{ fontSize: '12px', color: '#333', marginTop: '2px' }}>
-                                                             <em>{act.lugar.nombre}</em>
+                                                        <div style={{ fontSize: '12px', color: 'var(--ink-600)', marginTop: '2px' }}>
+                                                            <em>{act.lugar.nombre}</em>
                                                         </div>
                                                     )}
-                                                    <p style={{ fontSize: '11px', color: '#666', margin: '3px 0 0 0' }}>
-                                                         {act.tip}
+                                                    <p style={{ fontSize: '11px', color: 'var(--ink-400)', margin: '3px 0 0 0' }}>
+                                                        {act.tip}
                                                     </p>
                                                 </div>
 
@@ -311,10 +311,10 @@ function AsistenteIA({ lugares = [], onVerDetalle, onClose }) {
                                                     <button
                                                         onClick={() => onVerDetalle(act.lugar)}
                                                         style={{
-                                                            background: '#e6efe9',
-                                                            color: '#36533f',
-                                                            border: '1px solid #c4d7cd',
-                                                            borderRadius: '6px',
+                                                            background: 'var(--forest-100)',
+                                                            color: 'var(--forest-700)',
+                                                            border: '1px solid var(--forest-border)',
+                                                            borderRadius: 'var(--radius-sm)',
                                                             padding: '4px 10px',
                                                             fontSize: '11px',
                                                             fontWeight: '700',
@@ -333,17 +333,17 @@ function AsistenteIA({ lugares = [], onVerDetalle, onClose }) {
                     )}
 
                     {/* Chat Conversacional Directo */}
-                    <div style={{ borderTop: '1px solid #eee', paddingTop: '15px' }}>
-                        <h4 style={{ margin: '0 0 10px 0', fontSize: '14px', color: '#444', fontWeight: '700' }}>
-                             Consultas Rápidas en Lenguaje Natural
+                    <div style={{ borderTop: '1px solid var(--sand-200)', paddingTop: '15px' }}>
+                        <h4 style={{ margin: '0 0 10px 0', fontSize: '14px', color: 'var(--ink-600)', fontWeight: '700' }}>
+                            Consultas Rápidas en Lenguaje Natural
                         </h4>
 
                         <div style={{
                             maxHeight: '180px',
                             overflowY: 'auto',
-                            background: '#fdfdfc',
-                            border: '1px solid #e7e5dc',
-                            borderRadius: '8px',
+                            background: 'var(--sand-50)',
+                            border: '1px solid var(--sand-200)',
+                            borderRadius: 'var(--radius-sm)',
                             padding: '12px',
                             marginBottom: '10px',
                             display: 'flex',
@@ -351,14 +351,14 @@ function AsistenteIA({ lugares = [], onVerDetalle, onClose }) {
                             gap: '8px'
                         }}>
                             {conversacion.map((msg, i) => (
-                                <div 
+                                <div
                                     key={i}
                                     style={{
                                         alignSelf: msg.emisor === 'ia' ? 'flex-start' : 'flex-end',
-                                        background: msg.emisor === 'ia' ? '#eef4f0' : '#5d7d65',
-                                        color: msg.emisor === 'ia' ? '#1a3322' : '#ffffff',
+                                        background: msg.emisor === 'ia' ? 'var(--forest-100)' : 'var(--forest-500)',
+                                        color: msg.emisor === 'ia' ? 'var(--forest-700)' : '#ffffff',
                                         padding: '8px 12px',
-                                        borderRadius: '10px',
+                                        borderRadius: 'var(--radius-md)',
                                         maxWidth: '85%',
                                         fontSize: '13px',
                                         lineHeight: '1.4'
@@ -370,7 +370,7 @@ function AsistenteIA({ lugares = [], onVerDetalle, onClose }) {
                         </div>
 
                         <form onSubmit={enviarMensajeChat} style={{ display: 'flex', gap: '8px' }}>
-                            <input 
+                            <input
                                 type="text"
                                 value={mensajeChat}
                                 onChange={(e) => setMensajeChat(e.target.value)}
@@ -378,8 +378,8 @@ function AsistenteIA({ lugares = [], onVerDetalle, onClose }) {
                                 style={{
                                     flex: 1,
                                     padding: '9px 12px',
-                                    borderRadius: '6px',
-                                    border: '1px solid #ccc',
+                                    borderRadius: 'var(--radius-sm)',
+                                    border: '1px solid var(--sand-200)',
                                     fontSize: '13px',
                                     outline: 'none'
                                 }}
@@ -387,10 +387,10 @@ function AsistenteIA({ lugares = [], onVerDetalle, onClose }) {
                             <button
                                 type="submit"
                                 style={{
-                                    background: '#1a3322',
+                                    background: 'var(--forest-900)',
                                     color: '#fff',
                                     border: 'none',
-                                    borderRadius: '6px',
+                                    borderRadius: 'var(--radius-sm)',
                                     padding: '9px 16px',
                                     fontWeight: '700',
                                     fontSize: '13px',

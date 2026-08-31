@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export default function WidgetClima() {
+export default function WidgetClima({ color = 'var(--forest-500)' }) {
     const [clima, setClima] = useState({ temp: '--', icon: '...' });
 
     useEffect(() => {
@@ -20,9 +20,9 @@ export default function WidgetClima() {
     }, []);
 
     return (
-        <div style={{ 
-            fontSize: '14px', 
-            color: '#5d7d65', 
+        <div style={{
+            fontSize: '14px',
+            color,
             fontWeight: 'bold', 
             marginRight: '10px',
             display: 'flex',

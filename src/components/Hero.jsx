@@ -5,11 +5,8 @@ function Hero({ busqueda, setBusqueda }) {
         <section style={{
             position: 'relative',
             overflow: 'hidden',
-            padding: '160px 20px 60px 20px',
-            textAlign: 'center',
-            borderBottomLeftRadius: '50% 10px',
-            borderBottomRightRadius: '50% 10px',
-            marginBottom: '30px'
+            padding: '150px 20px 90px 20px',
+            textAlign: 'center'
         }}>
             {/* Imagen de fondo con blur */}
             <div style={{
@@ -26,30 +23,54 @@ function Hero({ busqueda, setBusqueda }) {
                 zIndex: 0
             }}></div>
 
-            {/* Capa oscura / overlay */}
+            {/* Capa oscura / overlay cálido */}
             <div style={{
                 position: 'absolute',
                 top: 0,
                 left: 0,
                 right: 0,
                 bottom: 0,
-                background: 'rgba(0, 0, 0, 0.35)',
+                background: 'linear-gradient(160deg, rgba(22,40,31,0.62) 0%, rgba(22,40,31,0.32) 50%, rgba(193,102,46,0.45) 100%)',
                 zIndex: 1
             }}></div>
 
             {/* Contenido del hero */}
             <div style={{ position: 'relative', zIndex: 2 }}>
+                <span style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    background: 'rgba(255,255,255,0.14)',
+                    border: '1px solid rgba(255,255,255,0.35)',
+                    color: 'var(--sand-50)',
+                    padding: '5px 14px',
+                    borderRadius: 'var(--radius-pill)',
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    letterSpacing: '0.6px',
+                    textTransform: 'uppercase',
+                    marginBottom: '18px',
+                    backdropFilter: 'blur(4px)'
+                }}>
+                    ⛰ Sierras de Tandil
+                </span>
+
                 <h1 style={{
-                    color: '#adddbd',
-                    fontSize: '42px',
+                    fontFamily: 'var(--display)',
+                    color: '#fff',
+                    fontSize: '52px',
                     margin: '0 0 10px 0',
-                    fontWeight: '800'
+                    fontWeight: '600',
+                    letterSpacing: '-0.8px',
+                    textShadow: '0 4px 20px rgba(0,0,0,0.35)'
                 }}>
                     Bienvenido a Tandil
                 </h1>
                 <p style={{
-                    color: '#f0f0f0',
-                    fontSize: '18px',
+                    fontFamily: 'var(--display)',
+                    fontStyle: 'italic',
+                    color: 'var(--sand-100)',
+                    fontSize: '19px',
                     margin: '0 0 40px 0',
                     fontWeight: '400'
                 }}>
@@ -61,13 +82,13 @@ function Hero({ busqueda, setBusqueda }) {
                     maxWidth: '600px',
                     margin: '0 auto',
                     background: '#fff',
-                    borderRadius: '8px',
+                    borderRadius: 'var(--radius-lg)',
                     display: 'flex',
                     alignItems: 'center',
                     padding: '8px 8px 8px 15px',
-                    boxShadow: '0 4px 15px rgba(0,0,0,0.15)'
+                    boxShadow: 'var(--shadow-lg)'
                 }}>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--ink-400)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <circle cx="11" cy="11" r="8"></circle>
                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                     </svg>
@@ -79,9 +100,9 @@ function Hero({ busqueda, setBusqueda }) {
                         style={{ flex: 1, border: 'none', padding: '12px 15px', fontSize: '16px', outline: 'none', background: 'transparent' }}
                     />
                     <button style={{
-                        background: '#5d7d65',
+                        background: 'var(--terracotta-600)',
                         border: 'none',
-                        borderRadius: '6px',
+                        borderRadius: 'var(--radius-md)',
                         width: '45px',
                         height: '45px',
                         display: 'flex',
@@ -97,6 +118,18 @@ function Hero({ busqueda, setBusqueda }) {
                     </button>
                 </div>
             </div>
+
+            {/* Silueta serrana como transición hacia el contenido */}
+            <svg
+                viewBox="0 0 1440 70"
+                preserveAspectRatio="none"
+                style={{ position: 'absolute', bottom: -1, left: 0, width: '100%', height: '56px', zIndex: 2 }}
+            >
+                <path
+                    d="M0 70 L0 38 L120 12 L240 42 L360 8 L480 36 L600 18 L720 44 L840 10 L960 38 L1080 20 L1200 46 L1320 14 L1440 36 L1440 70 Z"
+                    fill="var(--sand-50)"
+                />
+            </svg>
         </section>
     );
 }

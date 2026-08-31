@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import logoAetermia from '../assets/logo.png';
+import Logo from './Logo';
 
 function Footer({ onAbrirAdminSecreto, onAbrirModalQR }) {
     // Control interno de clics para asegurar el doble clic sin depender del evento nativo del navegador
@@ -19,15 +20,27 @@ function Footer({ onAbrirAdminSecreto, onAbrirModalQR }) {
     };
 
     return (
+        <div style={{ marginTop: 'auto' }}>
+            {/* Silueta serrana como transición hacia el pie institucional */}
+            <svg
+                viewBox="0 0 1440 60"
+                preserveAspectRatio="none"
+                style={{ display: 'block', width: '100%', height: '38px', marginBottom: '-1px' }}
+            >
+                <path
+                    d="M0 60 L0 34 L120 50 L240 20 L360 46 L480 12 L600 40 L720 18 L840 44 L960 14 L1080 42 L1200 22 L1320 48 L1440 20 L1440 60 Z"
+                    fill="var(--forest-900)"
+                    stroke="var(--terracotta-600)"
+                    strokeWidth="2.5"
+                />
+            </svg>
         <footer style={{
             width: '100%',
-            background: '#1a3322',
-            color: '#c5d8cb',
-            padding: '40px 30px 25px 30px',
+            background: 'var(--forest-900)',
+            color: 'var(--forest-100)',
+            padding: '30px 30px 25px 30px',
             fontSize: '13px',
-            boxSizing: 'border-box',
-            marginTop: 'auto',
-            borderTop: '4px solid #5d7d65'
+            boxSizing: 'border-box'
         }}>
             <div style={{
                 maxWidth: '1100px',
@@ -39,10 +52,11 @@ function Footer({ onAbrirAdminSecreto, onAbrirModalQR }) {
             }}>
                 {/* Columna 1: Identidad Institucional */}
                 <div>
-                    <h3 style={{ color: '#ffffff', fontSize: '18px', fontWeight: '800', margin: '0 0 10px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <h3 style={{ color: '#ffffff', fontFamily: 'var(--display)', fontSize: '19px', fontWeight: '600', margin: '0 0 10px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <Logo size={26} showText={false} />
                         <span>Dirección de Turismo</span>
                     </h3>
-                    <p style={{ fontSize: '13px', color: '#adddbd', margin: '0 0 8px 0', fontWeight: '600' }}>
+                    <p style={{ fontSize: '13px', color: 'var(--forest-400)', margin: '0 0 8px 0', fontWeight: '600' }}>
                         Municipio de Tandil • Gobierno Local
                     </p>
                 </div>
@@ -56,10 +70,10 @@ function Footer({ onAbrirAdminSecreto, onAbrirModalQR }) {
                         <button
                             onClick={onAbrirModalQR}
                             style={{
-                                background: '#2d4b37',
-                                color: '#adddbd',
-                                border: '1px solid #4a6751',
-                                borderRadius: '6px',
+                                background: 'var(--forest-800)',
+                                color: 'var(--forest-100)',
+                                border: '1px solid var(--forest-600)',
+                                borderRadius: 'var(--radius-sm)',
                                 padding: '6px 12px',
                                 fontSize: '12px',
                                 fontWeight: '700',
@@ -77,7 +91,7 @@ function Footer({ onAbrirAdminSecreto, onAbrirModalQR }) {
 
                 {/* Columna 4: Desarrollado por */}
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center' }}>
-                    <span style={{ fontSize: '11px', color: '#7a9683', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                    <span style={{ fontSize: '11px', color: 'var(--forest-400)', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                         Desarrollado y Gestionado por
                     </span>
                     <img
@@ -95,7 +109,7 @@ function Footer({ onAbrirAdminSecreto, onAbrirModalQR }) {
 
             {/* Barra Inferior con Acceso Secreto Robusto */}
             <div style={{
-                borderTop: '1px solid rgba(255,255,255,0.1)',
+                borderTop: '1px solid rgba(255,255,255,0.12)',
                 paddingTop: '20px',
                 maxWidth: '1100px',
                 margin: '0 auto',
@@ -111,7 +125,7 @@ function Footer({ onAbrirAdminSecreto, onAbrirModalQR }) {
                         cursor: 'pointer',
                         userSelect: 'none',
                         fontSize: '12px',
-                        color: '#7a9683',
+                        color: 'var(--forest-400)',
                         margin: 0,
                         padding: '10px 0',
                         pointerEvents: 'auto'
@@ -122,6 +136,7 @@ function Footer({ onAbrirAdminSecreto, onAbrirModalQR }) {
                 </p>
             </div>
         </footer>
+        </div>
     );
 }
 

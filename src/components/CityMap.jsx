@@ -2,15 +2,16 @@ import { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import { CATEGORIAS, CATEGORIA_DEFAULT } from '../data/categoryTheme';
 
 // Función para calcular distancia euclídea/haversine en km
 function calcularDistanciaKm(lat1, lon1, lat2, lon2) {
     const R = 6371; // Radio de la Tierra en km
     const dLat = (lat2 - lat1) * Math.PI / 180;
     const dLon = (lon2 - lon1) * Math.PI / 180;
-    const a = 
+    const a =
         Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
         Math.sin(dLon / 2) * Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     return R * c;
@@ -30,7 +31,7 @@ const crearIconoColor = (color, emoji = '⟟') => {
                 align-items: center;
                 justify-content: center;
                 border: 2px solid #ffffff;
-                box-shadow: 0 3px 8px rgba(0,0,0,0.35);
+                box-shadow: 0 3px 8px rgba(22,40,31,0.4);
             ">
                 <span style="transform: rotate(45deg); font-size: 13px; margin-top: -2px;">${emoji}</span>
             </div>
@@ -45,7 +46,7 @@ const crearIconoColor = (color, emoji = '⟟') => {
 const iconoUsuario = new L.DivIcon({
     html: `
         <div style="
-            background-color: #2563eb;
+            background-color: var(--info, #2563eb);
             width: 20px;
             height: 20px;
             border-radius: 50%;
@@ -59,13 +60,22 @@ const iconoUsuario = new L.DivIcon({
     popupAnchor: [0, -10]
 });
 
+const coloresCategoria = {
+    'Paseo': CATEGORIAS.Paseo.color,
+    'Gastronomía': CATEGORIAS['Gastronomía'].color,
+    'Alojamiento': CATEGORIAS.Alojamiento.color,
+    'Cultura': CATEGORIAS.Cultura.color,
+    'Aventura': CATEGORIAS.Aventura.color,
+    'Default': CATEGORIA_DEFAULT.color
+};
+
 const iconosPorCategoria = {
-    'Paseo': crearIconoColor('#2ecc71', '𖣂'),
-    'Gastronomía': crearIconoColor('#9b59b6', '𐃯'),
-    'Alojamiento': crearIconoColor('#e74c3c', '🏠︎'),
-    'Cultura': crearIconoColor('#f39c12', '🏛'),
-    'Aventura': crearIconoColor('#e67e22', 'ᨒ'),
-    'Default': crearIconoColor('#3498db', '⟟')
+    'Paseo': crearIconoColor(coloresCategoria.Paseo, '𖣂'),
+    'Gastronomía': crearIconoColor(coloresCategoria['Gastronomía'], '𐃯'),
+    'Alojamiento': crearIconoColor(coloresCategoria.Alojamiento, '🏠︎'),
+    'Cultura': crearIconoColor(coloresCategoria.Cultura, '🏛'),
+    'Aventura': crearIconoColor(coloresCategoria.Aventura, 'ᨒ'),
+    'Default': crearIconoColor(coloresCategoria.Default, '⟟')
 };
 
 // Componente auxiliar para recentrar mapa
@@ -148,10 +158,10 @@ export default function CityMap({ lugares = [], onVerDetalle }) {
                 marginBottom: '20px'
             }}>
                 <div>
-                    <h2 style={{ color: '#1a3322', margin: '0 0 5px 0', fontSize: '24px', fontWeight: '800' }}>
-                         Mapa Turístico Oficial de Tandil
+                    <h2 style={{ fontFamily: 'var(--display)', color: 'var(--ink-900)', margin: '0 0 5px 0', fontSize: '25px', fontWeight: '600' }}>
+                        Mapa Turístico Oficial de Tandil
                     </h2>
-                    <p style={{ color: '#666', fontSize: '14px', margin: 0 }}>
+                    <p style={{ color: 'var(--ink-600)', fontSize: '14px', margin: 0 }}>
                         Explorá los puntos georreferenciados y prestadores habilitados en el partido.
                     </p>
                 </div>
@@ -161,10 +171,10 @@ export default function CityMap({ lugares = [], onVerDetalle }) {
                         onClick={obtenerUbicacion}
                         disabled={cargandoGPS}
                         style={{
-                            background: ubicacionUsuario ? '#2563eb' : '#5d7d65',
+                            background: ubicacionUsuario ? 'var(--info)' : 'var(--forest-500)',
                             color: '#fff',
                             border: 'none',
-                            borderRadius: '8px',
+                            borderRadius: 'var(--radius-sm)',
                             padding: '10px 16px',
                             fontWeight: '700',
                             fontSize: '13px',
@@ -172,7 +182,7 @@ export default function CityMap({ lugares = [], onVerDetalle }) {
                             display: 'flex',
                             alignItems: 'center',
                             gap: '6px',
-                            boxShadow: '0 2px 6px rgba(0,0,0,0.1)'
+                            boxShadow: 'var(--shadow-sm)'
                         }}
                     >
                         <span>{cargandoGPS ? 'Localizando...' : ubicacionUsuario ? 'Ubicación activa' : 'Mi Ubicación GPS'}</span>
@@ -188,12 +198,12 @@ export default function CityMap({ lugares = [], onVerDetalle }) {
                 marginBottom: '15px'
             }}>
                 {[
-                    { label: 'Todos', val: '', color: '#333' },
-                    { label: ' Paseos', val: 'Paseo', color: '#2ecc71' },
-                    { label: ' Gastronomía', val: 'Gastronomía', color: '#9b59b6' },
-                    { label: ' Alojamiento', val: 'Alojamiento', color: '#e74c3c' },
-                    { label: ' Cultura', val: 'Cultura', color: '#f39c12' },
-                    { label: ' Aventura', val: 'Aventura', color: '#e67e22' }
+                    { label: 'Todos', val: '', color: 'var(--ink-900)' },
+                    { label: '⛰ Paseos', val: 'Paseo', color: coloresCategoria.Paseo },
+                    { label: '🍽 Gastronomía', val: 'Gastronomía', color: coloresCategoria['Gastronomía'] },
+                    { label: '🏠 Alojamiento', val: 'Alojamiento', color: coloresCategoria.Alojamiento },
+                    { label: '🏛 Cultura', val: 'Cultura', color: coloresCategoria.Cultura },
+                    { label: '🥾 Aventura', val: 'Aventura', color: coloresCategoria.Aventura }
                 ].map((item) => {
                     const activa = filtroCategoria === item.val;
                     return (
@@ -201,11 +211,11 @@ export default function CityMap({ lugares = [], onVerDetalle }) {
                             key={item.val}
                             onClick={() => setFiltroCategoria(item.val)}
                             style={{
-                                border: activa ? `2px solid ${item.color}` : '1px solid #d4d0c5',
-                                background: activa ? '#ffffff' : '#f4f3ec',
-                                color: '#1a3322',
+                                border: activa ? `2px solid ${item.color}` : '1px solid var(--sand-200)',
+                                background: activa ? '#ffffff' : 'var(--sand-100)',
+                                color: 'var(--ink-900)',
                                 padding: '6px 12px',
-                                borderRadius: '20px',
+                                borderRadius: 'var(--radius-pill)',
                                 fontSize: '12px',
                                 fontWeight: activa ? '800' : '600',
                                 cursor: 'pointer',
@@ -220,10 +230,10 @@ export default function CityMap({ lugares = [], onVerDetalle }) {
 
             {/* Contenedor del Mapa Leaflet */}
             <div style={{
-                borderRadius: '16px',
+                borderRadius: 'var(--radius-lg)',
                 overflow: 'hidden',
-                boxShadow: '0 6px 20px rgba(0,0,0,0.12)',
-                border: '1px solid #dcd8cd'
+                boxShadow: 'var(--shadow-md)',
+                border: '1px solid var(--sand-200)'
             }}>
                 <MapContainer
                     center={cityCenter}
@@ -240,7 +250,7 @@ export default function CityMap({ lugares = [], onVerDetalle }) {
                     {ubicacionUsuario && (
                         <Marker position={ubicacionUsuario} icon={iconoUsuario}>
                             <Popup>
-                                <div style={{ textAlign: 'center', fontWeight: 'bold', color: '#2563eb' }}>
+                                <div style={{ textAlign: 'center', fontWeight: 'bold', color: 'var(--info)' }}>
                                     Tu ubicación actual
                                 </div>
                             </Popup>
@@ -251,6 +261,7 @@ export default function CityMap({ lugares = [], onVerDetalle }) {
                     {lugaresFiltrados.map((lugar) => {
                         if (!lugar.coords || lugar.coords.length !== 2) return null;
                         const icon = iconosPorCategoria[lugar.tipo] || iconosPorCategoria['Default'];
+                        const catColor = coloresCategoria[lugar.tipo] || coloresCategoria.Default;
 
                         return (
                             <Marker
@@ -267,27 +278,27 @@ export default function CityMap({ lugares = [], onVerDetalle }) {
                                                 style={{ width: '100%', height: '90px', objectFit: 'cover', borderRadius: '6px', marginBottom: '8px' }}
                                             />
                                         )}
-                                        <h4 style={{ margin: '0 0 4px 0', fontSize: '15px', color: '#1a3322' }}>
+                                        <h4 style={{ margin: '0 0 4px 0', fontSize: '15px', color: 'var(--ink-900)' }}>
                                             {lugar.nombre}
                                         </h4>
                                         <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap', marginBottom: '6px' }}>
-                                            <span style={{ fontSize: '10px', fontWeight: '700', background: '#e6efe9', color: '#36533f', padding: '2px 6px', borderRadius: '4px' }}>
+                                            <span style={{ fontSize: '10px', fontWeight: '700', background: `${catColor}22`, color: catColor, padding: '2px 6px', borderRadius: '4px' }}>
                                                 {lugar.tipo}
                                             </span>
                                             {lugar.recomendado && (
-                                                <span style={{ fontSize: '10px', fontWeight: '700', background: '#fdf8ec', color: '#855d14', padding: '2px 6px', borderRadius: '4px' }}>
-                                                     Recomendado
+                                                <span style={{ fontSize: '10px', fontWeight: '700', background: 'var(--gold-100)', color: 'var(--gold-ink)', padding: '2px 6px', borderRadius: '4px' }}>
+                                                    ★ Recomendado
                                                 </span>
                                             )}
                                         </div>
 
                                         {lugar.distanciaKm !== null && (
-                                            <p style={{ margin: '0 0 8px 0', fontSize: '11px', color: '#2563eb', fontWeight: 'bold' }}>
-                                                 A {lugar.distanciaKm < 1 ? `${Math.round(lugar.distanciaKm * 1000)} m` : `${lugar.distanciaKm.toFixed(1)} km`} de vos
+                                            <p style={{ margin: '0 0 8px 0', fontSize: '11px', color: 'var(--info)', fontWeight: 'bold' }}>
+                                                A {lugar.distanciaKm < 1 ? `${Math.round(lugar.distanciaKm * 1000)} m` : `${lugar.distanciaKm.toFixed(1)} km`} de vos
                                             </p>
                                         )}
 
-                                        <p style={{ margin: '0 0 8px 0', fontSize: '12px', color: '#555', lineHeight: '1.3' }}>
+                                        <p style={{ margin: '0 0 8px 0', fontSize: '12px', color: 'var(--ink-600)', lineHeight: '1.3' }}>
                                             {lugar.descripcion ? (lugar.descripcion.length > 70 ? lugar.descripcion.substring(0, 70) + '...' : lugar.descripcion) : ''}
                                         </p>
 
@@ -296,7 +307,7 @@ export default function CityMap({ lugares = [], onVerDetalle }) {
                                                 onClick={() => onVerDetalle(lugar)}
                                                 style={{
                                                     width: '100%',
-                                                    background: '#5d7d65',
+                                                    background: 'var(--forest-500)',
                                                     color: '#fff',
                                                     border: 'none',
                                                     borderRadius: '4px',

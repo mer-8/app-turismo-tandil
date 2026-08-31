@@ -5,7 +5,7 @@ function ModalQR({ onClose }) {
     const qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" + encodeURIComponent(window.location.href);
 
     return (
-        <div 
+        <div
             onClick={onClose}
             style={{
                 position: 'fixed',
@@ -13,7 +13,7 @@ function ModalQR({ onClose }) {
                 left: 0,
                 right: 0,
                 bottom: 0,
-                background: 'rgba(15, 25, 18, 0.7)',
+                background: 'rgba(22, 40, 31, 0.7)',
                 backdropFilter: 'blur(5px)',
                 display: 'flex',
                 justifyContent: 'center',
@@ -22,16 +22,16 @@ function ModalQR({ onClose }) {
                 padding: '20px'
             }}
         >
-            <div 
+            <div
                 onClick={(e) => e.stopPropagation()}
                 style={{
                     background: '#ffffff',
-                    borderRadius: '16px',
+                    borderRadius: 'var(--radius-lg)',
                     maxWidth: '440px',
                     width: '100%',
                     padding: '30px',
                     textAlign: 'center',
-                    boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
+                    boxShadow: 'var(--shadow-lg)',
                     position: 'relative'
                 }}
             >
@@ -41,7 +41,7 @@ function ModalQR({ onClose }) {
                         position: 'absolute',
                         top: '15px',
                         right: '15px',
-                        background: '#f0f3f1',
+                        background: 'var(--sand-100)',
                         border: 'none',
                         borderRadius: '50%',
                         width: '32px',
@@ -54,11 +54,11 @@ function ModalQR({ onClose }) {
                 </button>
 
                 <div style={{
-                    background: '#5d7d65',
+                    background: 'var(--forest-500)',
                     color: '#fff',
                     display: 'inline-block',
                     padding: '4px 12px',
-                    borderRadius: '20px',
+                    borderRadius: 'var(--radius-pill)',
                     fontSize: '11px',
                     fontWeight: '800',
                     textTransform: 'uppercase',
@@ -67,19 +67,19 @@ function ModalQR({ onClose }) {
                     Campaña Oficial de Señalética Inteligente
                 </div>
 
-                <h3 style={{ margin: '0 0 8px 0', color: '#1a3322', fontSize: '20px', fontWeight: '800' }}>
+                <h3 style={{ margin: '0 0 8px 0', fontFamily: 'var(--display)', color: 'var(--ink-900)', fontSize: '21px', fontWeight: '600' }}>
                     📱 Código QR de Descarga y Acceso
                 </h3>
 
-                <p style={{ color: '#666', fontSize: '13px', margin: '0 0 20px 0', lineHeight: '1.4' }}>
+                <p style={{ color: 'var(--ink-600)', fontSize: '13px', margin: '0 0 20px 0', lineHeight: '1.4' }}>
                     Diseñado para tótems de informes en accesos a cerros, paradores y folletería digital municipal.
                 </p>
 
                 <div style={{
                     padding: '15px',
-                    background: '#faf9f5',
-                    borderRadius: '12px',
-                    border: '2px dashed #5d7d65',
+                    background: 'var(--sand-50)',
+                    borderRadius: 'var(--radius-md)',
+                    border: '2px dashed var(--forest-500)',
                     display: 'inline-block',
                     marginBottom: '20px'
                 }}>
@@ -90,7 +90,7 @@ function ModalQR({ onClose }) {
                     />
                 </div>
 
-                <p style={{ fontSize: '12px', color: '#888', margin: '0 0 20px 0' }}>
+                <p style={{ fontSize: '12px', color: 'var(--ink-400)', margin: '0 0 20px 0' }}>
                     Escaneá con la cámara de cualquier teléfono para abrir o instalar la aplicación web oficial.
                 </p>
 
@@ -98,10 +98,10 @@ function ModalQR({ onClose }) {
                     onClick={() => window.print()}
                     style={{
                         width: '100%',
-                        background: '#1a3322',
+                        background: 'var(--forest-900)',
                         color: '#fff',
                         border: 'none',
-                        borderRadius: '8px',
+                        borderRadius: 'var(--radius-sm)',
                         padding: '10px',
                         fontWeight: '700',
                         fontSize: '14px',
